@@ -1,0 +1,46 @@
+{
+  "connector_id": "gcp",
+  "name": "Google Cloud (Audit Logs + IAM)",
+  "vendor_url": "https://cloud.google.com",
+  "evidence_types_emitted": ["configuration", "log", "report"],
+  "auth": {
+    "method": "service_account",
+    "scopes_required": [
+      "https://www.googleapis.com/auth/cloud-platform.read-only",
+      "https://www.googleapis.com/auth/logging.read",
+      "https://www.googleapis.com/auth/iam.read",
+      "https://www.googleapis.com/auth/cloud-identity.policies.readonly"
+    ]
+  },
+  "probes": [
+    {
+      "probe_id": "gcp-iam-policy-config",
+      "evidence_type": "configuration",
+      "frequency_default": "daily",
+      "description": "Synthetic placeholder. Verify against vendor docs. Captures organization, folder, and project IAM policy bindings as a configuration snapshot.",
+      "satisfies_controls_hint": ["IAM-RBAC-001", "SOC2-CC6"]
+    },
+    {
+      "probe_id": "gcp-org-policy-constraints-config",
+      "evidence_type": "configuration",
+      "frequency_default": "daily",
+      "description": "Synthetic placeholder. Verify against vendor docs. Captures Organization Policy constraint values (resource-location, key-spec, service-restrictions).",
+      "satisfies_controls_hint": ["DATA-RESIDENCY-001"]
+    },
+    {
+      "probe_id": "gcp-cloud-audit-logs",
+      "evidence_type": "log",
+      "frequency_default": "hourly",
+      "description": "Synthetic placeholder. Verify against vendor docs. Streams Cloud Audit Logs (Admin Activity, Data Access, System Event).",
+      "satisfies_controls_hint": ["AUDIT-LOG-001", "SOC2-CC7"]
+    },
+    {
+      "probe_id": "gcp-security-command-center-report",
+      "evidence_type": "report",
+      "frequency_default": "monthly",
+      "description": "Synthetic placeholder. Verify against vendor docs. Pulls a Security Command Center findings/posture report (CIS GCP, ISO 27001 mappings).",
+      "satisfies_controls_hint": ["SOC2-CC7"]
+    }
+  ],
+  "notes": "Synthetic/illustrative manifest. Verify scopes, endpoints, and probe behaviour against current Google Cloud documentation before wiring into a production engine."
+}

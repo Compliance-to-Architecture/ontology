@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://compliancetoarchitecture.com/schemas/evidence/screenshot.schema.json",
+  "title": "Screenshot evidence",
+  "description": "Time-stamped UI capture used as proof a control state was observed (rare and weak — use only when programmatic extraction is impossible).",
+  "type": "object",
+  "required": ["id", "system", "capturedAt", "capturedBy", "uri", "sha256"],
+  "properties": {
+    "id":         { "type": "string", "pattern": "^EV-SCR-[A-Z0-9-]+$" },
+    "system":     { "type": "string" },
+    "capturedAt": { "type": "string", "format": "date-time" },
+    "capturedBy": { "type": "string" },
+    "url":        { "type": "string", "format": "uri", "description": "URL of the surface that was captured" },
+    "uri":        { "type": "string", "format": "uri", "description": "Storage URI of the screenshot artefact" },
+    "sha256":     { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "redactionApplied": { "type": "boolean" },
+    "redactedBy":       { "type": "string" },
+    "frameworks":       { "type": "array", "items": { "type": "string" } },
+    "controls":         { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}

@@ -1,0 +1,57 @@
+[
+  {
+    "control_test_id": "TEST-IAM-ACCESS-REVIEW-001",
+    "control_id": "CTRL-IAM-ACCESS-REVIEW-001",
+    "test_type": "operating_effectiveness",
+    "frequency": "quarterly",
+    "method": "sample_and_verify",
+    "sample_size": 25,
+    "pass_criteria": [
+      "Reviewer and sign-off principal are distinct (four-eyes).",
+      "Every revoked or modified grant has a corresponding ticket and the change was applied within 5 business days.",
+      "100% of sampled access grants are reconciled against current HR role assignments."
+    ],
+    "evidence_required": [
+      "EV-AR-IAM-QUARTERLY",
+      "EV-LOG-IAM-CHANGE"
+    ],
+    "rationale": "Quarterly four-eyes privileged access review per ISO/IEC 27001 A.5.18, SOC 2 CC6.3 and PCI DSS 4.0.1 Req. 7.2.5. n=25 gives high assurance on a population of <500 privileged grants.",
+    "assurance_level": "high"
+  },
+  {
+    "control_test_id": "TEST-CHANGE-MGMT-PEER-REVIEW-001",
+    "control_id": "CTRL-CHANGE-MGMT-PEER-REVIEW-001",
+    "test_type": "operating_effectiveness",
+    "frequency": "monthly",
+    "method": "inspection",
+    "pass_criteria": [
+      "Every production change has a recorded peer review approval distinct from the author.",
+      "Emergency changes have a post-change review completed within 5 business days.",
+      "No production change in the period was deployed without an approval recorded in the change-management system."
+    ],
+    "evidence_required": [
+      "EV-LOG-CHANGE-APPROVAL",
+      "EV-REPORT-CHANGE-MGMT-MONTHLY"
+    ],
+    "rationale": "Monthly inspection of change-approval logs supports ISO/IEC 27001 A.8.32 and SOC 2 CC8.1. Inspection (rather than reperformance) is appropriate because the system-of-record itself is the evidence.",
+    "assurance_level": "moderate"
+  },
+  {
+    "control_test_id": "TEST-BACKUP-RESTORE-001",
+    "control_id": "CTRL-BACKUP-RESTORE-001",
+    "test_type": "both",
+    "frequency": "annually",
+    "method": "reperformance",
+    "pass_criteria": [
+      "A full restore of the production database from backup completes successfully into an isolated environment.",
+      "Restored data integrity matches the source within the documented RPO.",
+      "Restore completes within the documented RTO."
+    ],
+    "evidence_required": [
+      "EV-REPORT-BACKUP-RESTORE-DRILL",
+      "EV-LOG-BACKUP-CHAIN"
+    ],
+    "rationale": "Annual restore reperformance per ISO/IEC 27001 A.8.13, SOC 2 A1.2 and DORA Art. 12. Reperformance is the only method that proves the backup is actually restorable.",
+    "assurance_level": "high"
+  }
+]

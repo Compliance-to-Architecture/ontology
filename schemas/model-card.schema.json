@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://compliancetoarchitecture.com/schemas/evidence/model-card.schema.json",
+  "title": "Model card evidence",
+  "description": "Structured documentation of an AI/ML model — its intended use, training-data lineage, performance metrics, limitations, and ethical considerations. Aligns with Mitchell et al. 2019 + Datasheets-for-Datasets 2018 + EU AI Act Annex IV technical documentation requirements.",
+  "type": "object",
+  "required": ["id", "modelId", "modelName", "version", "intendedUse", "trainingDataSummary", "performanceMetrics", "limitations", "ownerPrincipalId"],
+  "properties": {
+    "id":               { "type": "string", "pattern": "^EV-MDL-[A-Z0-9-]+$" },
+    "modelId":          { "type": "string" },
+    "modelName":        { "type": "string", "minLength": 1 },
+    "version":          { "type": "string" },
+    "intendedUse":      { "type": "string", "minLength": 1 },
+    "outOfScopeUse":    { "type": "string" },
+    "trainingDataSummary": { "type": "string", "minLength": 1 },
+    "trainingDataLineageRefs": { "type": "array", "items": { "type": "string" } },
+    "performanceMetrics": { "type": "array", "items": {
+      "type": "object",
+      "required": ["name", "value"],
+      "properties": {
+        "name":  { "type": "string" },
+        "value": { "type": "number" },
+        "unit":  { "type": "string" },
+        "subgroup": { "type": "string" }
+      }
+    } },
+    "biasTestResultsUri": { "type": "string", "format": "uri" },
+    "limitations":      { "type": "string", "minLength": 1 },
+    "ethicalConsiderations": { "type": "string" },
+    "ownerPrincipalId": { "type": "string" },
+    "publishedAt":      { "type": "string", "format": "date-time" },
+    "uri":              { "type": "string", "format": "uri" },
+    "sha256":           { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  },
+  "additionalProperties": false
+}

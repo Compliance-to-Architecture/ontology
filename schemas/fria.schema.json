@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://compliancetoarchitecture.com/schemas/evidence/fria.schema.json",
+  "title": "FRIA evidence (EU AI Act Art. 27)",
+  "description": "Fundamental Rights Impact Assessment for high-risk AI systems used by deployers (per EU AI Act Art. 27). Distinct from a DPIA — focuses on human-rights impact.",
+  "type": "object",
+  "required": ["id", "aiSystemId", "deployerPrincipalId", "submittedAt", "intendedPurpose", "affectedCategoriesOfPersons", "rightsImpactedAssessment", "humanOversightMeasures"],
+  "properties": {
+    "id":                          { "type": "string", "pattern": "^EV-FRIA-[A-Z0-9-]+$" },
+    "aiSystemId":                  { "type": "string" },
+    "deployerPrincipalId":         { "type": "string" },
+    "submittedAt":                 { "type": "string", "format": "date-time" },
+    "approvedAt":                  { "type": "string", "format": "date-time" },
+    "approvedBy":                  { "type": "string" },
+    "intendedPurpose":             { "type": "string", "minLength": 1 },
+    "deploymentDuration":          { "type": "string", "description": "Stated frequency/duration of intended use." },
+    "affectedCategoriesOfPersons": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "rightsImpactedAssessment":    { "type": "string", "minLength": 1, "description": "Specific risks of harm to those persons + groups." },
+    "humanOversightMeasures":      { "type": "string", "minLength": 1 },
+    "riskMitigationMeasures":      { "type": "string" },
+    "internalGovernanceMeasures":  { "type": "string" },
+    "complaintHandlingProcess":    { "type": "string" },
+    "marketSurveillanceAuthorityNotifiedAt": { "type": "string", "format": "date-time" },
+    "frameworks":                  { "type": "array", "items": { "type": "string" } },
+    "controls":                    { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}

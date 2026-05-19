@@ -1,0 +1,87 @@
+[
+  {
+    "connector_id": "example-idp",
+    "name": "Example Identity Provider",
+    "vendor_url": "https://example.com",
+    "evidence_types_emitted": ["configuration", "log", "attestation"],
+    "auth": {
+      "method": "oauth2",
+      "scopes_required": ["read:users", "read:logs", "read:policies"]
+    },
+    "probes": [
+      {
+        "probe_id": "example-idp-mfa-policy",
+        "evidence_type": "configuration",
+        "frequency_default": "daily",
+        "description": "Synthetic placeholder. Verify against vendor docs. Fetches tenant-wide MFA enrollment policy as a configuration snapshot.",
+        "satisfies_controls_hint": ["IAM-MFA-001"]
+      },
+      {
+        "probe_id": "example-idp-admin-audit-log",
+        "evidence_type": "log",
+        "frequency_default": "hourly",
+        "description": "Synthetic placeholder. Verify against vendor docs. Streams admin-activity audit log entries.",
+        "satisfies_controls_hint": ["AUDIT-LOG-001"]
+      }
+    ],
+    "notes": "Synthetic example used only by the schema-validation CI gate."
+  },
+  {
+    "connector_id": "example-cloud",
+    "name": "Example Cloud Platform",
+    "vendor_url": "https://example.cloud",
+    "evidence_types_emitted": ["configuration", "log", "report"],
+    "auth": {
+      "method": "service_account",
+      "scopes_required": ["audit.viewer", "config.viewer"]
+    },
+    "probes": [
+      {
+        "probe_id": "example-cloud-config-snapshot",
+        "evidence_type": "configuration",
+        "frequency_default": "daily",
+        "description": "Synthetic placeholder. Verify against vendor docs. Captures resource-inventory configuration snapshot.",
+        "satisfies_controls_hint": ["CFG-INV-001"]
+      },
+      {
+        "probe_id": "example-cloud-audit-log",
+        "evidence_type": "log",
+        "frequency_default": "on-event",
+        "description": "Synthetic placeholder. Verify against vendor docs. Streams admin and data-plane audit events."
+      },
+      {
+        "probe_id": "example-cloud-compliance-report",
+        "evidence_type": "report",
+        "frequency_default": "monthly",
+        "description": "Synthetic placeholder. Verify against vendor docs. Pulls a managed compliance-posture report.",
+        "satisfies_controls_hint": ["SOC2-CC7"]
+      }
+    ],
+    "notes": "Synthetic example used only by the schema-validation CI gate."
+  },
+  {
+    "connector_id": "example-incident",
+    "name": "Example Incident Workflow",
+    "vendor_url": "https://incident.example",
+    "evidence_types_emitted": ["incident_record", "log"],
+    "auth": {
+      "method": "api_key"
+    },
+    "probes": [
+      {
+        "probe_id": "example-incident-records",
+        "evidence_type": "incident_record",
+        "frequency_default": "on-event",
+        "description": "Synthetic placeholder. Verify against vendor docs. Exports incident records with timeline, severity, and resolution.",
+        "satisfies_controls_hint": ["IR-001"]
+      },
+      {
+        "probe_id": "example-incident-activity-log",
+        "evidence_type": "log",
+        "frequency_default": "hourly",
+        "description": "Synthetic placeholder. Verify against vendor docs. Streams activity log entries for incident lifecycle changes."
+      }
+    ],
+    "notes": "Synthetic example used only by the schema-validation CI gate."
+  }
+]

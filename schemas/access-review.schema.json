@@ -1,0 +1,36 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://compliancetoarchitecture.com/schemas/evidence/access-review.schema.json",
+  "title": "Access review evidence",
+  "description": "Output of a periodic privileged-access review (ISO 27001 A.5.18, SOC 2 CC6.3, PCI DSS 7.2.5). Records every reviewed access grant + reviewer decision + sign-off principal (must be distinct from grant owner — four-eyes).",
+  "type": "object",
+  "required": ["id", "reviewPeriod", "scope", "reviewerPrincipalId", "signOffPrincipalId", "completedAt", "decisions"],
+  "properties": {
+    "id":                  { "type": "string", "pattern": "^EV-AR-[A-Z0-9-]+$" },
+    "reviewPeriod":        { "type": "string" },
+    "scope":               { "type": "string", "description": "Which systems / role classes were reviewed." },
+    "reviewerPrincipalId": { "type": "string" },
+    "signOffPrincipalId":  { "type": "string", "description": "Distinct from reviewerPrincipalId; four-eyes constraint." },
+    "completedAt":         { "type": "string", "format": "date-time" },
+    "decisions": { "type": "array", "items": {
+      "type": "object",
+      "required": ["principalId", "system", "currentRole", "outcome"],
+      "properties": {
+        "principalId": { "type": "string" },
+        "system":      { "type": "string" },
+        "currentRole": { "type": "string" },
+        "outcome":     { "type": "string", "enum": ["retain","modify","revoke"] },
+        "newRole":     { "type": "string" },
+        "rationale":   { "type": "string" }
+      }
+    } },
+    "totalReviewed":      { "type": "integer", "minimum": 0 },
+    "totalRevoked":       { "type": "integer", "minimum": 0 },
+    "totalModified":      { "type": "integer", "minimum": 0 },
+    "uri":                { "type": "string", "format": "uri" },
+    "sha256":             { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "frameworks":         { "type": "array", "items": { "type": "string" } },
+    "controls":           { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}

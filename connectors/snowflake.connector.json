@@ -1,0 +1,40 @@
+{
+  "connector_id": "snowflake",
+  "name": "Snowflake",
+  "vendor_url": "https://www.snowflake.com",
+  "evidence_types_emitted": ["configuration", "log"],
+  "auth": {
+    "method": "service_account",
+    "scopes_required": [
+      "USAGE ON WAREHOUSE",
+      "MONITOR USAGE ON ACCOUNT",
+      "SELECT ON SNOWFLAKE.ACCOUNT_USAGE.LOGIN_HISTORY",
+      "SELECT ON SNOWFLAKE.ACCOUNT_USAGE.QUERY_HISTORY",
+      "SELECT ON SNOWFLAKE.ACCOUNT_USAGE.GRANTS_TO_USERS"
+    ]
+  },
+  "probes": [
+    {
+      "probe_id": "snowflake-rbac-grants-config",
+      "evidence_type": "configuration",
+      "frequency_default": "daily",
+      "description": "Synthetic placeholder. Verify against vendor docs. Captures role-based grants (roles to users, roles to roles, object grants) as a configuration snapshot.",
+      "satisfies_controls_hint": ["IAM-RBAC-001", "SOC2-CC6"]
+    },
+    {
+      "probe_id": "snowflake-network-policy-config",
+      "evidence_type": "configuration",
+      "frequency_default": "daily",
+      "description": "Synthetic placeholder. Verify against vendor docs. Captures account-level network policies (allowed IP lists) and MFA enforcement settings.",
+      "satisfies_controls_hint": ["NET-ACL-001", "IAM-MFA-001"]
+    },
+    {
+      "probe_id": "snowflake-login-and-query-history-log",
+      "evidence_type": "log",
+      "frequency_default": "hourly",
+      "description": "Synthetic placeholder. Verify against vendor docs. Streams LOGIN_HISTORY and QUERY_HISTORY from the ACCOUNT_USAGE schema.",
+      "satisfies_controls_hint": ["AUDIT-LOG-001", "SOC2-CC7"]
+    }
+  ],
+  "notes": "Synthetic/illustrative manifest. Verify scopes, endpoints, and probe behaviour against current Snowflake documentation before wiring into a production engine."
+}

@@ -1,0 +1,105 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://compliancetoarchitecture.com/schemas/layer/exception-waiver.schema.json",
+  "title": "ExceptionWaiver",
+  "description": "A time-bounded, formally accepted deviation from a Control. Carries a documented reason, a named risk-acceptance role, a non-empty set of compensating controls, an expiry date, a status and an optional review cadence. Open exceptions feed the POA&M. Top-level shape may be a single record or an array of records.",
+  "definitions": {
+    "ExceptionWaiver": {
+      "type": "object",
+      "required": [
+        "exception_id",
+        "control_id",
+        "reason",
+        "risk_acceptance_owner",
+        "compensating_controls",
+        "approved_until",
+        "status"
+      ],
+      "properties": {
+        "exception_id": {
+          "type": "string",
+          "pattern": "^EXC-[0-9]{4}-[0-9]{4}$",
+          "description": "Stable identifier, EXC-YYYY-NNNN."
+        },
+        "control_id": {
+          "type": "string",
+          "pattern": "^CTRL-[A-Z0-9-]+$",
+          "description": "Control.id this exception applies to."
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Plain-language explanation of why the control cannot be met as designed."
+        },
+        "risk_acceptance_owner": {
+          "type": "string",
+          "enum": ["ciso", "dpo", "cto", "ceo", "board", "custom"],
+          "description": "Role that formally accepted the residual risk. Use 'custom' only when the org's RACI cannot be expressed by the canonical roles."
+        },
+        "risk_acceptance_owner_custom": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Required when risk_acceptance_owner = custom. MUST name a role, not a person."
+        },
+        "compensating_controls": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "pattern": "^CTRL-[A-Z0-9-]+$" },
+          "description": "Non-empty list of Control IDs that reduce residual risk while the exception is open."
+        },
+        "approved_until": {
+          "type": "string",
+          "pattern": "^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$",
+          "description": "ISO 8601 calendar date (YYYY-MM-DD) after which the exception expires automatically."
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "active", "expired", "revoked"]
+        },
+        "review_cadence": {
+          "type": "string",
+          "enum": [
+            "realtime",
+            "daily",
+            "weekly",
+            "monthly",
+            "quarterly",
+            "semiannually",
+            "annually",
+            "on-event",
+            "on-change"
+          ],
+          "description": "Optional cadence at which the exception MUST be re-reviewed before expiry."
+        },
+        "linked_risk_scenarios": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^RISK-[A-Z0-9-]+$" },
+          "description": "Risk scenarios that gain residual exposure while this exception is open."
+        },
+        "linked_obligations": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^OBL-[A-Z0-9-]+$" },
+          "description": "Obligations that remain partially unmet for the duration of the exception."
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": { "risk_acceptance_owner": { "const": "custom" } },
+            "required": ["risk_acceptance_owner"]
+          },
+          "then": { "required": ["risk_acceptance_owner_custom"] }
+        }
+      ],
+      "additionalProperties": false
+    }
+  },
+  "oneOf": [
+    { "$ref": "#/definitions/ExceptionWaiver" },
+    {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/definitions/ExceptionWaiver" }
+    }
+  ]
+}

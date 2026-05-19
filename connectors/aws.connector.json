@@ -1,0 +1,58 @@
+{
+  "connector_id": "aws",
+  "name": "Amazon Web Services (CloudTrail + Config + IAM)",
+  "vendor_url": "https://aws.amazon.com",
+  "evidence_types_emitted": ["configuration", "log", "report"],
+  "auth": {
+    "method": "service_account",
+    "scopes_required": [
+      "config:Describe*",
+      "config:Get*",
+      "cloudtrail:LookupEvents",
+      "cloudtrail:DescribeTrails",
+      "iam:Get*",
+      "iam:List*",
+      "iam:GenerateCredentialReport",
+      "securityhub:Get*",
+      "securityhub:List*"
+    ]
+  },
+  "probes": [
+    {
+      "probe_id": "aws-config-resource-inventory",
+      "evidence_type": "configuration",
+      "frequency_default": "daily",
+      "description": "Synthetic placeholder. Verify against vendor docs. Captures the AWS Config resource inventory and managed-rule compliance state across the account.",
+      "satisfies_controls_hint": ["CFG-INV-001", "SOC2-CC7"]
+    },
+    {
+      "probe_id": "aws-iam-password-and-key-policy",
+      "evidence_type": "configuration",
+      "frequency_default": "daily",
+      "description": "Synthetic placeholder. Verify against vendor docs. Captures account password policy, key-rotation status, and root-account MFA enablement.",
+      "satisfies_controls_hint": ["IAM-MFA-001", "IAM-PWD-001"]
+    },
+    {
+      "probe_id": "aws-cloudtrail-management-events",
+      "evidence_type": "log",
+      "frequency_default": "hourly",
+      "description": "Synthetic placeholder. Verify against vendor docs. Streams CloudTrail management-event records across regions.",
+      "satisfies_controls_hint": ["AUDIT-LOG-001", "SOC2-CC7"]
+    },
+    {
+      "probe_id": "aws-iam-credential-report",
+      "evidence_type": "report",
+      "frequency_default": "weekly",
+      "description": "Synthetic placeholder. Verify against vendor docs. Generates and stores the IAM credential report (users, key age, MFA state, last-used).",
+      "satisfies_controls_hint": ["IAM-KEY-ROT-001"]
+    },
+    {
+      "probe_id": "aws-security-hub-posture-report",
+      "evidence_type": "report",
+      "frequency_default": "monthly",
+      "description": "Synthetic placeholder. Verify against vendor docs. Captures Security Hub posture-summary report (CIS, AWS FSBP, PCI DSS).",
+      "satisfies_controls_hint": ["SOC2-CC7", "PCI-POSTURE-001"]
+    }
+  ],
+  "notes": "Synthetic/illustrative manifest. Verify scopes, endpoints, and probe behaviour against current AWS documentation before wiring into a production engine."
+}

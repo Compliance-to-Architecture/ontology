@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://compliancetoarchitecture.com/schemas/evidence/policy.schema.json",
+  "title": "Policy evidence",
+  "description": "A formally adopted, board-or-management-approved document that codifies an organisation's intent, scope, and rules for a domain (security, privacy, AI governance, …).",
+  "type": "object",
+  "required": ["id", "title", "ownerPrincipalId", "approvedAt", "version", "uri", "sha256"],
+  "properties": {
+    "id":               { "type": "string", "pattern": "^EV-POL-[A-Z0-9-]+$" },
+    "title":            { "type": "string", "minLength": 1 },
+    "ownerPrincipalId": { "type": "string" },
+    "approvedAt":       { "type": "string", "format": "date-time" },
+    "approvedBy":       { "type": "string" },
+    "version":          { "type": "string" },
+    "uri":              { "type": "string", "format": "uri" },
+    "sha256":           { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "supersedes":       { "type": "string" },
+    "expiresAt":        { "type": "string", "format": "date-time" },
+    "frameworks":       { "type": "array", "items": { "type": "string" } },
+    "controls":         { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}

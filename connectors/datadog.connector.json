@@ -1,0 +1,39 @@
+{
+  "connector_id": "datadog",
+  "name": "Datadog (logs + monitors + SLOs)",
+  "vendor_url": "https://www.datadoghq.com",
+  "evidence_types_emitted": ["log", "report"],
+  "auth": {
+    "method": "api_key",
+    "scopes_required": [
+      "logs_read_data",
+      "monitors_read",
+      "slos_read",
+      "events_read"
+    ]
+  },
+  "probes": [
+    {
+      "probe_id": "datadog-monitor-alert-log",
+      "evidence_type": "log",
+      "frequency_default": "on-event",
+      "description": "Synthetic placeholder. Verify against vendor docs. Streams monitor state-change events (alert, warn, recover) and associated context.",
+      "satisfies_controls_hint": ["MON-ALERT-001", "SOC2-CC7.2"]
+    },
+    {
+      "probe_id": "datadog-audit-trail-log",
+      "evidence_type": "log",
+      "frequency_default": "hourly",
+      "description": "Synthetic placeholder. Verify against vendor docs. Streams Datadog audit trail (user/admin actions inside the Datadog org).",
+      "satisfies_controls_hint": ["AUDIT-LOG-001"]
+    },
+    {
+      "probe_id": "datadog-slo-status-report",
+      "evidence_type": "report",
+      "frequency_default": "weekly",
+      "description": "Synthetic placeholder. Verify against vendor docs. Exports SLO status and error-budget burndown across services.",
+      "satisfies_controls_hint": ["AVAILABILITY-SLO-001", "SOC2-A1"]
+    }
+  ],
+  "notes": "Synthetic/illustrative manifest. Verify scopes, endpoints, and probe behaviour against current Datadog documentation before wiring into a production engine."
+}

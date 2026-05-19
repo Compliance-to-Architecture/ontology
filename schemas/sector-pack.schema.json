@@ -1,0 +1,116 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://compliancetoarchitecture.com/schemas/layer/sector-pack.schema.json",
+  "title": "SectorPack",
+  "description": "A curated, sector-specific bundle of frameworks (required / recommended / optional), a pre-computed crosswalk subset relevant to those frameworks, and sequencing notes. Sector packs are starting points for scoping a programme — not legal advice. See packages/ontology/LEGAL_DISCLAIMER.md and packages/ontology/SECTOR_PACKS.md.",
+  "type": "object",
+  "required": [
+    "sector_pack_id",
+    "name",
+    "description",
+    "version",
+    "required_frameworks",
+    "recommended_frameworks",
+    "optional_frameworks",
+    "crosswalk_pairs",
+    "sequencing_notes",
+    "last_reviewed"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "sector_pack_id": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+      "description": "Stable, kebab-case slug identifying the sector pack (e.g. 'fintech-eu')."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable display name (e.g. 'Fintech (EU)')."
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "description": "One- or two-sentence description of who this pack is for."
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "SemVer of the sector-pack definition itself."
+    },
+    "required_frameworks": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/FrameworkCode" },
+      "uniqueItems": true,
+      "description": "Frameworks the customer must implement to operate in this sector."
+    },
+    "recommended_frameworks": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/FrameworkCode" },
+      "uniqueItems": true,
+      "description": "Frameworks the customer should adopt as best practice, or which become required under common sub-cases (e.g. 'if AI/ML')."
+    },
+    "optional_frameworks": {
+      "type": "array",
+      "items": { "$ref": "#/definitions/FrameworkCode" },
+      "uniqueItems": true,
+      "description": "Frameworks that apply only in narrow sub-cases (e.g. 'if handling PHI')."
+    },
+    "crosswalk_pairs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["a", "b", "rationale"],
+        "additionalProperties": false,
+        "properties": {
+          "a": { "$ref": "#/definitions/FrameworkCode" },
+          "b": { "$ref": "#/definitions/FrameworkCode" },
+          "rationale": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Why this pair is pre-mapped for this sector — points the reader at the highest-leverage shared clauses."
+          }
+        }
+      },
+      "description": "Pre-computed crosswalk subset relevant to this sector. Each pair MUST correspond to an actual edge in packages/frameworks/src/crosswalks.ts."
+    },
+    "sequencing_notes": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 },
+      "description": "Ordered guidance on which frameworks to stand up first and why (typically because later frameworks reuse earlier evidence)."
+    },
+    "last_reviewed": {
+      "type": "string",
+      "format": "date",
+      "description": "ISO-8601 date this pack was last reviewed by a domain SME."
+    }
+  },
+  "definitions": {
+    "FrameworkCode": {
+      "type": "string",
+      "enum": [
+        "EU_AI_ACT",
+        "ISO_42001",
+        "ISO_27001",
+        "ISO_27701",
+        "GDPR",
+        "HIPAA",
+        "SOC_2",
+        "SOC_1",
+        "PCI_DSS",
+        "NIST_AI_RMF",
+        "NIST_CSF",
+        "DORA",
+        "CCPA",
+        "NIS2",
+        "EU_CRA",
+        "DPDP_INDIA",
+        "LGPD_BRAZIL",
+        "PIPL_CHINA",
+        "APPI_JAPAN",
+        "PRIVACY_ACT_AU",
+        "UK_GDPR"
+      ]
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "connector_id": "workday",
+  "name": "Workday",
+  "vendor_url": "https://www.workday.com",
+  "evidence_types_emitted": ["training_record", "configuration"],
+  "auth": {
+    "method": "oauth2",
+    "scopes_required": [
+      "Learning_Read",
+      "Worker_Read",
+      "Security_Configuration_Read"
+    ]
+  },
+  "probes": [
+    {
+      "probe_id": "workday-learning-completion-records",
+      "evidence_type": "training_record",
+      "frequency_default": "monthly",
+      "description": "Synthetic placeholder. Verify against vendor docs. Reads Workday Learning completion records (security awareness, code of conduct, privacy training) per worker.",
+      "satisfies_controls_hint": ["TRAIN-SEC-001", "TRAIN-PRIVACY-001"]
+    },
+    {
+      "probe_id": "workday-security-group-membership-config",
+      "evidence_type": "configuration",
+      "frequency_default": "daily",
+      "description": "Synthetic placeholder. Verify against vendor docs. Captures Workday security-group membership and assignable-role configuration.",
+      "satisfies_controls_hint": ["IAM-RBAC-001"]
+    }
+  ],
+  "notes": "Synthetic/illustrative manifest. Verify scopes, endpoints, and probe behaviour against current Workday documentation before wiring into a production engine."
+}

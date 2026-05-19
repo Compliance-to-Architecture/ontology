@@ -1,0 +1,23 @@
+{
+  "level": 1,
+  "name": "Canonical IDs (FrameworkCode + clauseRef + controlRef)",
+  "summary": "Implementer publishes a Framework object whose registry key matches framework.code, whose clauses carry unique clauseRefs, and whose controls carry unique controlRefs.",
+  "requirements": [
+    "framework.schemaVersion === 1.",
+    "Registry key === framework.code.",
+    "framework.name, framework.version, framework.description and framework.referenceUrl are non-empty (referenceUrl is http or https).",
+    "framework.jurisdiction is a non-empty list of ISO-3166-alpha-2 codes or a recognised sentinel (GLOBAL, EU, EEA, UK).",
+    "Every clause has a non-empty clauseRef, title and description.",
+    "clauseRef values within a framework are unique.",
+    "Every control has a non-empty controlRef, title, description and category.",
+    "controlRef values within a framework are unique.",
+    "No fabricated trademark or copyright markers in framework metadata."
+  ],
+  "automated_checks": ["I1", "I2", "I3", "I4", "I5", "I6", "I7", "I8", "I16"],
+  "manual_checks": [],
+  "references": {
+    "spec": "packages/ontology/SPEC.md",
+    "conformance_doc": "packages/ontology/CONFORMANCE.md#level-1--uses-canonical-ids-frameworkcode--clauseref--controlref",
+    "invariants_source": "packages/frameworks/test/conformance.test.mjs"
+  }
+}

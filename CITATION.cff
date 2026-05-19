@@ -1,0 +1,52 @@
+cff-version: 1.2.0
+title: "Compliance-to-Architecture Framework"
+abstract: >-
+  An open, machine-readable framework for translating regulatory and
+  standards text (EU AI Act, ISO 42001, ISO 27001, GDPR, SOC 2, DORA,
+  PCI DSS, NIST AI RMF, NIST CSF, HIPAA, …) into testable obligations,
+  reusable controls, software architecture requirements,
+  policy-as-code bundles, and typed evidence objects, organised as a
+  12-layer graph.
+type: software
+authors:
+  - name: "Regunav Inc."
+    website: "https://regunav.com"
+repository-code: "https://github.com/ReguNav/framework"
+url: "https://compliancetoarchitecture.com"
+license: Apache-2.0
+version: "0.1.0"
+date-released: "2026-05-05"
+keywords:
+  - compliance
+  - GRC
+  - regulation
+  - architecture
+  - ontology
+  - EU-AI-Act
+  - ISO-27001
+  - ISO-42001
+  - GDPR
+  - SOC-2
+  - DORA
+  - PCI-DSS
+  - NIST-AI-RMF
+  - HIPAA
+  - audit
+  - evidence
+  - policy-as-code
+  - Cerbos
+  - OPA
+  - OSCAL
+preferred-citation:
+  type: software
+  title: "Compliance-to-Architecture Framework v0.1.0"
+  authors:
+    - name: "Regunav Inc."
+  year: 2026
+  version: "0.1.0"
+  url: "https://compliancetoarchitecture.com"
+  notes: >-
+    Cite the framework version explicitly in audit packs, DPIAs, FRIA
+    documentation, conformity dossiers, and board reports. Citations to
+    "Compliance-to-Architecture" without a version number are
+    ambiguous.

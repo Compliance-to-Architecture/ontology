@@ -1,0 +1,18 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://compliancetoarchitecture.com/schemas/layer/mitigation.schema.json",
+  "title": "Mitigation (L6)",
+  "description": "A specific mechanism that reduces a Risk by operationalising a Control.",
+  "type": "object",
+  "required": ["id", "title", "reduces", "control", "mechanism"],
+  "properties": {
+    "id":        { "type": "string", "pattern": "^MIT-[A-Z0-9-]+$" },
+    "title":     { "type": "string", "minLength": 1 },
+    "reduces":   { "type": "string", "pattern": "^RISK-" },
+    "control":   { "type": "string", "pattern": "^CTRL-" },
+    "mechanism": { "type": "string", "minLength": 1 },
+    "effectivenessEvidence": { "type": "string", "pattern": "^EV-" },
+    "residualRiskDelta":     { "type": "integer", "minimum": 0, "maximum": 25 }
+  },
+  "additionalProperties": false
+}

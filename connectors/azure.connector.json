@@ -1,0 +1,47 @@
+{
+  "connector_id": "azure",
+  "name": "Microsoft Azure (Activity Log + Defender + Policy)",
+  "vendor_url": "https://azure.microsoft.com",
+  "evidence_types_emitted": ["configuration", "log", "report"],
+  "auth": {
+    "method": "service_account",
+    "scopes_required": [
+      "https://management.azure.com/.default",
+      "Microsoft.Authorization/policyAssignments/read",
+      "Microsoft.Authorization/policyDefinitions/read",
+      "Microsoft.Insights/eventtypes/values/read",
+      "Microsoft.Security/assessments/read"
+    ]
+  },
+  "probes": [
+    {
+      "probe_id": "azure-policy-assignments-config",
+      "evidence_type": "configuration",
+      "frequency_default": "daily",
+      "description": "Synthetic placeholder. Verify against vendor docs. Captures Azure Policy assignments and compliance state across management groups and subscriptions.",
+      "satisfies_controls_hint": ["CFG-POL-001", "SOC2-CC7"]
+    },
+    {
+      "probe_id": "azure-rbac-role-assignments-config",
+      "evidence_type": "configuration",
+      "frequency_default": "daily",
+      "description": "Synthetic placeholder. Verify against vendor docs. Captures Azure RBAC role assignments at subscription and resource-group scope.",
+      "satisfies_controls_hint": ["IAM-RBAC-001"]
+    },
+    {
+      "probe_id": "azure-activity-log",
+      "evidence_type": "log",
+      "frequency_default": "hourly",
+      "description": "Synthetic placeholder. Verify against vendor docs. Streams Azure Activity Log (control-plane operations and policy events).",
+      "satisfies_controls_hint": ["AUDIT-LOG-001", "SOC2-CC7"]
+    },
+    {
+      "probe_id": "azure-defender-secure-score-report",
+      "evidence_type": "report",
+      "frequency_default": "monthly",
+      "description": "Synthetic placeholder. Verify against vendor docs. Pulls Microsoft Defender for Cloud secure-score and regulatory-compliance assessment report.",
+      "satisfies_controls_hint": ["SOC2-CC7", "ISO27001-A.5"]
+    }
+  ],
+  "notes": "Synthetic/illustrative manifest. Verify scopes, endpoints, and probe behaviour against current Microsoft Azure documentation before wiring into a production engine."
+}

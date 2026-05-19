@@ -1,0 +1,24 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://compliancetoarchitecture.com/schemas/evidence/contract.schema.json",
+  "title": "Contract evidence",
+  "description": "Executed contract artefact (DPA, MSA, vendor agreement, processor agreement, transfer-impact assessment). Used to evidence Art. 28 GDPR processor obligations, vendor due-diligence, supply-chain governance.",
+  "type": "object",
+  "required": ["id", "title", "kind", "parties", "executedAt", "uri", "sha256"],
+  "properties": {
+    "id":           { "type": "string", "pattern": "^EV-CTR-[A-Z0-9-]+$" },
+    "title":        { "type": "string", "minLength": 1 },
+    "kind":         { "type": "string", "enum": ["msa","dpa","sub-processor","vendor","tia","sla","insurance","nda","employment","other"] },
+    "parties":      { "type": "array", "items": { "type": "string" }, "minItems": 2 },
+    "counterpartyIds": { "type": "array", "items": { "type": "string" } },
+    "executedAt":   { "type": "string", "format": "date-time" },
+    "expiresAt":    { "type": "string", "format": "date-time" },
+    "uri":          { "type": "string", "format": "uri" },
+    "sha256":       { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "jurisdictionsCovered": { "type": "array", "items": { "type": "string" } },
+    "subProcessorsListed":  { "type": "array", "items": { "type": "string" } },
+    "frameworks":   { "type": "array", "items": { "type": "string" } },
+    "controls":     { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}

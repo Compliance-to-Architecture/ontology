@@ -1,0 +1,23 @@
+{
+  "sector_pack_id": "fintech-us",
+  "name": "Fintech (US)",
+  "description": "Curated framework bundle for fintech businesses operating in the United States — payment processors, neobanks, lenders, brokerage front-ends and money-services businesses.",
+  "version": "0.1.0",
+  "required_frameworks": ["PCI_DSS", "SOC_2", "NIST_CSF"],
+  "recommended_frameworks": ["ISO_27001", "NIST_AI_RMF", "CCPA"],
+  "optional_frameworks": ["HIPAA", "GDPR"],
+  "crosswalk_pairs": [
+    { "a": "ISO_27001", "b": "SOC_2", "rationale": "ISO 27001 Annex A.5 / A.8 controls evidence the SOC 2 Common Criteria — operate one ISMS and produce both reports." },
+    { "a": "PCI_DSS", "b": "ISO_27001", "rationale": "PCI DSS Req. 3 / 4 / 7 / 8 / 10 maps onto ISO 27001 A.8 cryptography + A.5 access control — the same control evidence supports both." },
+    { "a": "NIST_CSF", "b": "ISO_27001", "rationale": "CSF 2.0 GV / ID / PR / DE / RS / RC functions map cleanly to ISO 27001 Clause 4.1 and Annex A.5 / A.8 — used by federal counterparties as their common reference." }
+  ],
+  "sequencing_notes": [
+    "1. PCI DSS scope-reduction first — tokenise to a PSP wherever possible; the residual SAQ shape determines how much of Req. 3 / 4 / 10 you actually own.",
+    "2. Stand up SOC 2 Type I (point-in-time) within the first 6 months; convert to Type II (12-month observation) once controls are operating.",
+    "3. Use NIST CSF 2.0 as the organising taxonomy — it is the lingua franca with US bank counterparties and federal agencies and reads onto ISO 27001 if you ever add it.",
+    "4. CCPA / CPRA applies if you have California consumers; the right-to-know, right-to-delete and opt-out-of-sale flows must be wired before user signup goes live in CA.",
+    "5. NIST AI RMF 1.0 only if you score / decision with ML (credit, fraud, underwriting) — its GOVERN / MAP / MEASURE / MANAGE functions slot under SOC 2 CC1 governance.",
+    "6. HIPAA only if you are a covered entity or a business associate handling PHI (e.g. health-savings-account products with an insurer)."
+  ],
+  "last_reviewed": "2026-05-16"
+}

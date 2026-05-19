@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://compliancetoarchitecture.com/schemas/asset-registry-link.schema.json",
+  "title": "AssetRegistryLink",
+  "description": "Binds a Control to a concrete asset (system, vendor, data-store, API, model, dataset, region) in the tenant's asset registry. Materialises the abstract Control → real-world asset edge so audit packs can answer 'which systems are subject to this control?'.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "asset_link_id",
+    "control_id",
+    "asset_type",
+    "asset_ref",
+    "tenant_id",
+    "in_scope",
+    "established_at"
+  ],
+  "properties": {
+    "asset_link_id": {
+      "type": "string",
+      "description": "Stable identifier for this binding. Convention ALNK-<TOPIC>-NNN.",
+      "pattern": "^ALNK-[A-Z0-9]+(-[A-Z0-9]+)+-[0-9]{3}$"
+    },
+    "control_id": {
+      "type": "string",
+      "description": "Control reference (e.g. CTRL-IAM-ACCESS-REVIEW-001) that applies to this asset.",
+      "pattern": "^CTRL-[A-Z0-9-]+$"
+    },
+    "asset_type": {
+      "type": "string",
+      "enum": [
+        "system",
+        "service",
+        "vendor",
+        "datastore",
+        "api",
+        "model",
+        "dataset",
+        "region",
+        "team",
+        "physical-site"
+      ],
+      "description": "Kind of asset the binding points at."
+    },
+    "asset_ref": {
+      "type": "string",
+      "description": "Tenant-scoped identifier for the asset in the tenant's CMDB/registry. Opaque to the framework — the tenant defines the namespace."
+    },
+    "tenant_id": {
+      "type": "string",
+      "description": "Owner tenant. Cross-tenant references are forbidden by the Cerbos policy."
+    },
+    "in_scope": {
+      "type": "boolean",
+      "description": "Whether this asset is in scope for the control as of established_at. False = scope-out documented; the binding is preserved for audit history."
+    },
+    "scope_rationale": {
+      "type": "string",
+      "description": "Why the asset is in (or out of) scope. Required when in_scope=false."
+    },
+    "established_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the binding was established."
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Optional end-of-life for the binding (e.g. vendor contract end, system decommission). After this the binding moves to historical."
+    },
+    "owner_role": {
+      "type": "string",
+      "description": "Role that owns the binding (e.g. ciso, dpo, head_of_infra). Matches the Cerbos role-name convention (snake_case)."
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free-text operational notes."
+    }
+  },
+  "if": { "properties": { "in_scope": { "const": false } } },
+  "then": { "required": ["scope_rationale"] }
+}

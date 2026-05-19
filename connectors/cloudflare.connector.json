@@ -1,0 +1,47 @@
+{
+  "connector_id": "cloudflare",
+  "name": "Cloudflare (Audit Logs + Access + WAF)",
+  "vendor_url": "https://www.cloudflare.com",
+  "evidence_types_emitted": ["configuration", "log", "report"],
+  "auth": {
+    "method": "api_key",
+    "scopes_required": [
+      "account:read",
+      "audit_logs:read",
+      "access:read",
+      "waf:read",
+      "zone:read"
+    ]
+  },
+  "probes": [
+    {
+      "probe_id": "cloudflare-waf-ruleset-config",
+      "evidence_type": "configuration",
+      "frequency_default": "daily",
+      "description": "Synthetic placeholder. Verify against vendor docs. Captures managed and custom WAF rulesets attached per zone.",
+      "satisfies_controls_hint": ["NET-WAF-001", "SOC2-CC6.6"]
+    },
+    {
+      "probe_id": "cloudflare-access-policy-config",
+      "evidence_type": "configuration",
+      "frequency_default": "daily",
+      "description": "Synthetic placeholder. Verify against vendor docs. Captures Cloudflare Access application policies (IdP, posture, country).",
+      "satisfies_controls_hint": ["IAM-ZT-001"]
+    },
+    {
+      "probe_id": "cloudflare-audit-logs",
+      "evidence_type": "log",
+      "frequency_default": "hourly",
+      "description": "Synthetic placeholder. Verify against vendor docs. Streams account-level and zone-level audit logs (admin actions, policy edits).",
+      "satisfies_controls_hint": ["AUDIT-LOG-001", "SOC2-CC7"]
+    },
+    {
+      "probe_id": "cloudflare-waf-attack-report",
+      "evidence_type": "report",
+      "frequency_default": "monthly",
+      "description": "Synthetic placeholder. Verify against vendor docs. Pulls a WAF/firewall analytics report summarising blocked attack categories per zone.",
+      "satisfies_controls_hint": ["NET-WAF-001"]
+    }
+  ],
+  "notes": "Synthetic/illustrative manifest. Verify scopes, endpoints, and probe behaviour against current Cloudflare documentation before wiring into a production engine."
+}

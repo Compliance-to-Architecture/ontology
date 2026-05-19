@@ -1,0 +1,138 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://compliancetoarchitecture.com/schemas/connector/connector-manifest.schema.json",
+  "title": "Connector manifest (L4 binding)",
+  "description": "A concrete binding from a SaaS/cloud product to the evidence types it can emit. Each manifest declares the connector identity, supported evidence types (from the 12-kind union: policy, procedure, log, screenshot, report, attestation, configuration, training_record, incident_record, fria, dpia, contract), an auth shape, and a list of probes the runtime engine can fire. Manifests are illustrative — verify against vendor docs before wiring up a production connector.",
+  "type": "object",
+  "required": [
+    "connector_id",
+    "name",
+    "vendor_url",
+    "evidence_types_emitted",
+    "auth",
+    "probes"
+  ],
+  "properties": {
+    "connector_id": {
+      "type": "string",
+      "description": "Stable kebab-case identifier for the connector, e.g. 'okta', 'azure-ad', 'github'.",
+      "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+    },
+    "name": {
+      "type": "string",
+      "description": "Human-readable connector name.",
+      "minLength": 1
+    },
+    "vendor_url": {
+      "type": "string",
+      "description": "Canonical vendor URL.",
+      "format": "uri"
+    },
+    "evidence_types_emitted": {
+      "type": "array",
+      "description": "Subset of the 12-kind EvidenceType union this connector can emit.",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "enum": [
+          "policy",
+          "procedure",
+          "log",
+          "screenshot",
+          "report",
+          "attestation",
+          "configuration",
+          "training_record",
+          "incident_record",
+          "fria",
+          "dpia",
+          "contract"
+        ]
+      }
+    },
+    "auth": {
+      "type": "object",
+      "description": "How the engine authenticates against the connector.",
+      "required": ["method"],
+      "properties": {
+        "method": {
+          "type": "string",
+          "enum": ["oauth2", "api_key", "service_account", "webhook"]
+        },
+        "scopes_required": {
+          "type": "array",
+          "description": "Scopes/permissions the engine requests. Names are connector-specific.",
+          "items": { "type": "string", "minLength": 1 }
+        }
+      },
+      "additionalProperties": false
+    },
+    "probes": {
+      "type": "array",
+      "description": "List of probe definitions the runtime can fire to collect evidence.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "probe_id",
+          "evidence_type",
+          "frequency_default",
+          "description"
+        ],
+        "properties": {
+          "probe_id": {
+            "type": "string",
+            "description": "Stable kebab-case identifier for the probe.",
+            "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$"
+          },
+          "evidence_type": {
+            "type": "string",
+            "enum": [
+              "policy",
+              "procedure",
+              "log",
+              "screenshot",
+              "report",
+              "attestation",
+              "configuration",
+              "training_record",
+              "incident_record",
+              "fria",
+              "dpia",
+              "contract"
+            ]
+          },
+          "frequency_default": {
+            "type": "string",
+            "enum": [
+              "on-event",
+              "hourly",
+              "daily",
+              "weekly",
+              "monthly",
+              "quarterly",
+              "annually",
+              "on-demand"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "satisfies_controls_hint": {
+            "type": "array",
+            "description": "Non-binding hint: control IDs this probe may help satisfy. Engines should use the framework registry as the source of truth.",
+            "items": { "type": "string", "minLength": 1 }
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "notes": {
+      "type": "string",
+      "description": "Free-form notes. Manifests are synthetic/illustrative; verify against vendor docs before use."
+    }
+  },
+  "additionalProperties": false
+}

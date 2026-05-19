@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://compliancetoarchitecture.com/schemas/evidence/log.schema.json",
+  "title": "Log evidence",
+  "description": "Time-bounded extract of system events used as proof a control operated. Must be tamper-evident: each row carries a hash of the previous row in time order.",
+  "type": "object",
+  "required": ["id", "sourceSystem", "windowStart", "windowEnd", "rowCount", "uri", "sha256"],
+  "properties": {
+    "id":             { "type": "string", "pattern": "^EV-LOG-[A-Z0-9-]+$" },
+    "sourceSystem":   { "type": "string" },
+    "windowStart":    { "type": "string", "format": "date-time" },
+    "windowEnd":      { "type": "string", "format": "date-time" },
+    "rowCount":       { "type": "integer", "minimum": 0 },
+    "uri":            { "type": "string", "format": "uri" },
+    "sha256":         { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "wormVerified":   { "type": "boolean" },
+    "hashChainHead":  { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "frameworks":     { "type": "array", "items": { "type": "string" } },
+    "controls":       { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}

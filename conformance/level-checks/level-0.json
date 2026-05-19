@@ -1,0 +1,20 @@
+{
+  "level": 0,
+  "name": "Uses the terminology",
+  "summary": "Implementer adopts the canonical layer names and layer numbering from SPEC.md when describing the system in documentation, slides or marketing.",
+  "requirements": [
+    "Use the canonical layer names (Authority, Obligation, Control, EvidenceObject, ArchitectureRequirement, PolicyAsCode, AuditTrailLink, AuditPack, RiskScenario, Mitigation, Workflow, AiSystemGovernance, MonitorBinding) in user-facing material.",
+    "Use the 12-layer numbering published in SPEC.md when referencing the framework structure.",
+    "Do not introduce fabricated trademark, registered or copyright markers in user-facing strings."
+  ],
+  "automated_checks": ["I16"],
+  "manual_checks": [
+    "Editor reviews documentation surface for canonical layer names.",
+    "Editor confirms the 12-layer numbering is preserved."
+  ],
+  "references": {
+    "spec": "packages/ontology/SPEC.md",
+    "conformance_doc": "packages/ontology/CONFORMANCE.md#level-0--uses-the-terminology",
+    "invariants_source": "packages/frameworks/test/conformance.test.mjs"
+  }
+}

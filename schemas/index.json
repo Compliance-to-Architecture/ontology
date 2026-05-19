@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://compliancetoarchitecture.com/schemas/evidence/index.json",
+  "title": "Compliance-to-Architecture evidence schemas — index",
+  "description": "Lookup table from EvidenceType to its JSON Schema. Implementations MUST validate evidence artefacts against the appropriate schema before accepting them. The 16 canonical kinds split into the 12 baseline + 4 specialised AI/ops kinds (model-card, data-card, audit-trail-export, access-review).",
+  "version": "0.1.0",
+  "evidenceTypes": {
+    "policy":              { "schema": "./policy.schema.json",              "category": "baseline" },
+    "procedure":           { "schema": "./procedure.schema.json",           "category": "baseline" },
+    "log":                 { "schema": "./log.schema.json",                 "category": "baseline" },
+    "screenshot":          { "schema": "./screenshot.schema.json",          "category": "baseline" },
+    "report":              { "schema": "./report.schema.json",              "category": "baseline" },
+    "attestation":         { "schema": "./attestation.schema.json",         "category": "baseline" },
+    "configuration":       { "schema": "./configuration.schema.json",       "category": "baseline" },
+    "training_record":     { "schema": "./training_record.schema.json",     "category": "baseline" },
+    "training-record":     { "schema": "./training-record.schema.json",     "category": "baseline", "alias_of": "training_record" },
+    "incident_record":     { "schema": "./incident_record.schema.json",     "category": "baseline" },
+    "incident-record":     { "schema": "./incident-record.schema.json",     "category": "baseline", "alias_of": "incident_record" },
+    "fria":                { "schema": "./fria.schema.json",                "category": "baseline" },
+    "dpia":                { "schema": "./dpia.schema.json",                "category": "baseline" },
+    "contract":            { "schema": "./contract.schema.json",            "category": "baseline" },
+    "model-card":          { "schema": "./model-card.schema.json",          "category": "ai-ops" },
+    "data-card":           { "schema": "./data-card.schema.json",           "category": "ai-ops" },
+    "audit-trail-export":  { "schema": "./audit-trail-export.schema.json",  "category": "ai-ops" },
+    "access-review":       { "schema": "./access-review.schema.json",       "category": "ai-ops" }
+  },
+  "layerSchemas": {
+    "L0_RiskScenario":      { "schema": "./risk-scenario.schema.json" },
+    "L2_Jurisdiction":      { "schema": "./jurisdiction.schema.json" },
+    "L3_ApplicabilityRule": { "schema": "./applicability-rule.schema.json" },
+    "L6_Mitigation":        { "schema": "./mitigation.schema.json" },
+    "L12_AuditPack":        { "schema": "./audit-pack.schema.json" },
+    "ControlTest":          { "schema": "./control-test.schema.json" }
+  },
+  "dictionarySchema": { "schema": "./dictionary.schema.json" },
+  "manifestSchema":   { "schema": "./manifest.schema.json" },
+  "manifestKindSchemas": {
+    "rule-pack": { "schema": "./rule-pack-manifest.schema.json" }
+  }
+}

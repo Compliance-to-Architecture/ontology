@@ -1,0 +1,21 @@
+{
+  "level": 3,
+  "name": "Controls mapped to architecture requirements (linkage exists; partial coverage allowed in V1)",
+  "summary": "Implementer expresses the link between abstract control and concrete software capability via ArchitectureRequirement.forControl, or an equivalent machine-readable edge. Partial coverage is acceptable in V1; full coverage is a higher-level concern.",
+  "requirements": [
+    "For every control the implementer claims architectural backing for, at least one ArchitectureRequirement (or equivalent record) exists with forControl pointing at that control.",
+    "Every ArchitectureRequirement.forControl resolves to a known control id.",
+    "The framework's underlying clauses and controls still satisfy Level 1 and Level 2 invariants."
+  ],
+  "automated_checks": ["I1", "I2", "I3", "I4", "I5", "I6", "I7", "I8", "I10", "I11", "I16"],
+  "manual_checks": [
+    "Reviewer confirms ArchitectureRequirement.forControl edges resolve via packages/ontology/conformance/validate.mjs.",
+    "Reviewer confirms at least one architecture requirement exists for each control the implementer claims architectural backing for."
+  ],
+  "references": {
+    "spec": "packages/ontology/SPEC.md",
+    "conformance_doc": "packages/ontology/CONFORMANCE.md#level-3--maps-controls-to-architecture-requirements-linkage-exists-can-be-partial-in-v1",
+    "invariants_source": "packages/frameworks/test/conformance.test.mjs",
+    "structural_validator": "packages/ontology/conformance/validate.mjs"
+  }
+}

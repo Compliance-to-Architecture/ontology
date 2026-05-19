@@ -1,0 +1,45 @@
+---
+# Compliance-to-Architecture v0.1 · reference Cerbos bundle
+# Apache-2.0 — fork freely, contribute improvements upstream.
+apiVersion: api.cerbos.dev/v1
+derivedRoles:
+  name: cta_common_roles
+  definitions:
+    - name: tenant_member
+      parentRoles: ["user","analyst","viewer","tenant_admin","compliance_officer","auditor"]
+      condition:
+        match:
+          expr: request.resource.attr.tenant_id == request.principal.attr.tenant_id
+
+    - name: tenant_admin_only
+      parentRoles: ["tenant_admin"]
+      condition:
+        match:
+          expr: request.resource.attr.tenant_id == request.principal.attr.tenant_id
+
+    # Four-eyes: the principal approving an access-review outcome must NOT be
+    # the same principal who created the review (or whose access is being
+    # reviewed). This implements the segregation-of-duties requirement that
+    # both ISO 27001 and SOC 2 inspect for.
+    - name: four_eyes_approver
+      parentRoles: ["tenant_admin","compliance_officer","auditor"]
+      condition:
+        match:
+          all:
+            of:
+              - expr: request.resource.attr.tenant_id == request.principal.attr.tenant_id
+              - expr: request.resource.attr.creator_id != request.principal.id
+              - expr: request.resource.attr.subject_id != request.principal.id
+
+    # Residency: principal's clearance region matches the resource region.
+    # "global" principals see all subsidiaries; resources without a region
+    # attr fall open (residency only enforced on flagged content).
+    - name: region_match
+      parentRoles: ["user","analyst","viewer","tenant_admin","compliance_officer","auditor"]
+      condition:
+        match:
+          any:
+            of:
+              - expr: request.principal.attr.region == "global"
+              - expr: request.resource.attr.region == request.principal.attr.region
+              - expr: request.resource.attr.region == ""

@@ -1,0 +1,21 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://compliancetoarchitecture.com/schemas/evidence/attestation.schema.json",
+  "title": "Attestation evidence",
+  "description": "A signed statement by a named principal asserting a fact (e.g. 'I confirm I completed the access review on 2026-Q2'). Signature is required.",
+  "type": "object",
+  "required": ["id", "subject", "claim", "principalId", "signedAt", "signature"],
+  "properties": {
+    "id":          { "type": "string", "pattern": "^EV-ATT-[A-Z0-9-]+$" },
+    "subject":     { "type": "string" },
+    "claim":       { "type": "string" },
+    "principalId": { "type": "string" },
+    "signedAt":    { "type": "string", "format": "date-time" },
+    "signature":   { "type": "string", "description": "Detached signature (PGP / X.509 / WebCrypto Ed25519) over canonical JSON of {subject, claim, principalId, signedAt}." },
+    "signatureAlg": { "type": "string", "enum": ["ed25519","ecdsa-p256","rsa-pss-sha256","openpgp"] },
+    "publicKeyRef": { "type": "string" },
+    "frameworks":   { "type": "array", "items": { "type": "string" } },
+    "controls":     { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}

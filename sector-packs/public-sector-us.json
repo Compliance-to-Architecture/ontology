@@ -1,0 +1,23 @@
+{
+  "sector_pack_id": "public-sector-us",
+  "name": "Public Sector / GovTech (US)",
+  "description": "Curated framework bundle for vendors selling to US federal, state and local government — including SaaS that processes Federal Information, cloud services seeking FedRAMP authorisation, and AI tools subject to OMB M-24-10 / M-25-21.",
+  "version": "0.1.0",
+  "required_frameworks": ["NIST_CSF", "NIST_AI_RMF", "SOC_2"],
+  "recommended_frameworks": ["ISO_27001"],
+  "optional_frameworks": ["HIPAA", "PCI_DSS"],
+  "crosswalk_pairs": [
+    { "a": "NIST_CSF", "b": "ISO_27001", "rationale": "CSF 2.0 GV / ID / PR / DE / RS / RC functions cross-walk to ISO 27001 Clause 4.1 + Annex A.5 / A.8 — many federal-customer security questionnaires accept either as the underlying control catalogue." },
+    { "a": "ISO_27001", "b": "SOC_2", "rationale": "ISO 27001 Annex A controls evidence the SOC 2 Common Criteria — SOC 2 Type II is the de-facto minimum for state-and-local procurement and a useful pre-FedRAMP exercise." },
+    { "a": "EU_AI_ACT", "b": "NIST_AI_RMF", "rationale": "If the AI capability is also offered to EU public-sector customers, the AI RMF MAP / MEASURE / MANAGE evidence reads onto EU AI Act Art. 9 risk-management for high-risk public-sector AI." }
+  ],
+  "sequencing_notes": [
+    "1. NIST CSF 2.0 first as the organising taxonomy — every federal counterparty speaks CSF, and CSF 2.0 GV (Govern) function is the bridge to programme-level governance.",
+    "2. NIST AI RMF 1.0 for any AI capability — federal AI inventories under OMB M-24-10 + M-25-21 expect AI-RMF-aligned documentation; the OSCAL-emit companion in @regunav/ontology can produce machine-readable bundles.",
+    "3. SOC 2 Type II for commercial-flavour state / local procurement and as evidence pack for the FedRAMP 3PAO assessment.",
+    "4. FedRAMP authorisation track — Moderate or High baseline depending on data sensitivity; OSCAL SSP + SAP + SAR + POA&M are the deliverable shape. Use the OSCAL emitter to bootstrap the SSP from your ISO 27001 Statement of Applicability.",
+    "5. ISO 27001 is not required by the US government, but it considerably accelerates the FedRAMP control-implementation work because Annex A mostly subsets NIST SP 800-53 control families.",
+    "6. HIPAA only if VA / IHS / DoD-MHS or state Medicaid / public-health data is in scope. PCI DSS only if government-payment-portal cardholder data is processed."
+  ],
+  "last_reviewed": "2026-05-16"
+}

@@ -1,0 +1,132 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://compliancetoarchitecture.com/schemas/change-event.schema.json",
+  "title": "ChangeEvent",
+  "description": "Records a change to a regulation, standard, ontology object, framework module, or downstream artefact. Drives the regulatory-change-monitoring layer the audit identified as a core value proposition — when a Authority publishes an amendment, every dependent obligation/control/evidence-rule gets a ChangeEvent so consumers can re-assess impact.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "change_event_id",
+    "kind",
+    "subject_type",
+    "subject_id",
+    "old_version",
+    "new_version",
+    "summary",
+    "effective_at",
+    "published_at",
+    "source"
+  ],
+  "properties": {
+    "change_event_id": {
+      "type": "string",
+      "description": "Stable identifier. Convention CE-YYYY-NNNN (year-monotonic per source).",
+      "pattern": "^CE-[0-9]{4}-[0-9]{4}$"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "amendment",
+        "supersession",
+        "interpretation",
+        "errata",
+        "withdrawal",
+        "new-publication"
+      ],
+      "description": "What KIND of change this event records."
+    },
+    "subject_type": {
+      "type": "string",
+      "enum": [
+        "authority-document",
+        "framework",
+        "obligation",
+        "control",
+        "evidence-rule",
+        "applicability-test",
+        "crosswalk",
+        "schema",
+        "playbook"
+      ],
+      "description": "What KIND of artefact changed."
+    },
+    "subject_id": {
+      "type": "string",
+      "description": "Identifier of the changed subject. Domain depends on subject_type — e.g. for framework: 'EU_AI_ACT'; for control: 'CTRL-IAM-ACCESS-REVIEW-001'."
+    },
+    "old_version": {
+      "type": "string",
+      "description": "Version the subject moved from. Use 'n/a' for new publications."
+    },
+    "new_version": {
+      "type": "string",
+      "description": "Version the subject moves to."
+    },
+    "summary": {
+      "type": "string",
+      "description": "One-paragraph human description of what changed and why it matters.",
+      "minLength": 1
+    },
+    "delta_refs": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Specific clause/control/section identifiers that changed (subset of the subject)."
+    },
+    "downstream_impact": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["target_type", "target_id"],
+        "properties": {
+          "target_type": {
+            "type": "string",
+            "enum": ["control", "obligation", "evidence-rule", "applicability-test", "crosswalk", "audit-pack"]
+          },
+          "target_id": { "type": "string" },
+          "impact_kind": {
+            "type": "string",
+            "enum": ["re-assess", "definitely-changed", "may-be-changed", "deprecated"]
+          }
+        }
+      },
+      "description": "Downstream artefacts that should be re-assessed. Drives an inbox-style workflow for compliance teams."
+    },
+    "effective_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the change is in legal/operational force."
+    },
+    "published_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When the change was officially published by the authority."
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["authority_id", "url"],
+      "properties": {
+        "authority_id": {
+          "type": "string",
+          "description": "Authority that published the change. E.g. 'eu-ec' for European Commission, 'iso-iec' for ISO/IEC, 'aicpa' for AICPA."
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "URL to the authoritative source."
+        },
+        "citation": {
+          "type": "string",
+          "description": "Free-form citation string for audit packs."
+        }
+      },
+      "description": "Provenance of the change."
+    },
+    "supersedes": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^CE-[0-9]{4}-[0-9]{4}$" },
+      "description": "Other ChangeEvents this one supersedes (chain of amendments)."
+    }
+  }
+}

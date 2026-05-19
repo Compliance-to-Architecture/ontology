@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://compliancetoarchitecture.com/schemas/evidence/configuration.schema.json",
+  "title": "Configuration evidence",
+  "description": "An export of system configuration (IaC, RBAC bindings, network policy, encryption settings) at a point in time, used as proof of control implementation.",
+  "type": "object",
+  "required": ["id", "system", "capturedAt", "configKind", "uri", "sha256"],
+  "properties": {
+    "id":         { "type": "string", "pattern": "^EV-CFG-[A-Z0-9-]+$" },
+    "system":     { "type": "string" },
+    "capturedAt": { "type": "string", "format": "date-time" },
+    "configKind": { "type": "string", "enum": ["terraform","pulumi","cdk","wrangler","kubernetes","helm","ansible","policy-bundle","other"] },
+    "uri":        { "type": "string", "format": "uri" },
+    "sha256":     { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "drift":      {
+      "type": "object",
+      "properties": {
+        "lastChecked":   { "type": "string", "format": "date-time" },
+        "isDrifted":     { "type": "boolean" },
+        "expectedSha256":{ "type": "string", "pattern": "^[0-9a-f]{64}$" }
+      }
+    },
+    "frameworks": { "type": "array", "items": { "type": "string" } },
+    "controls":   { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}

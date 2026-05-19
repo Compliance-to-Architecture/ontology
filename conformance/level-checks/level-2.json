@@ -1,0 +1,20 @@
+{
+  "level": 2,
+  "name": "Obligations mapped to controls (every control has clauseRefs)",
+  "summary": "Every control declares a non-empty clauseRefs array, and every entry resolves to a clause that exists in the same framework's clauses list.",
+  "requirements": [
+    "Every Control.clauseRefs is non-empty.",
+    "Every entry in Control.clauseRefs exists in framework.clauses (no dangling references).",
+    "Control.riskLevel is one of: prohibited, high, limited, minimal, gpai.",
+    "Control metadata (controlRef, title, description, category) is well-formed."
+  ],
+  "automated_checks": ["I7", "I10", "I11"],
+  "manual_checks": [
+    "Reviewer spot-checks that the cited clause text actually justifies the control."
+  ],
+  "references": {
+    "spec": "packages/ontology/SPEC.md",
+    "conformance_doc": "packages/ontology/CONFORMANCE.md#level-2--maps-obligations-to-controls-every-control-has-clauserefs",
+    "invariants_source": "packages/frameworks/test/conformance.test.mjs"
+  }
+}

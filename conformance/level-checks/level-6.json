@@ -1,0 +1,25 @@
+{
+  "level": 6,
+  "name": "Versioned jurisdiction and applicability logic (effective windows, supersession, exemption)",
+  "summary": "Authorities and applicability rules are versioned with explicit effective and applicable dates, supersession edges and exemption conditions, so the implementer can answer the applicability question for any (system, jurisdiction, date) triple without silently merging in newer-than-the-date rules.",
+  "requirements": [
+    "Every Authority carries publishedAt, and inForceFrom and applicableFrom where the underlying authority distinguishes them.",
+    "Every ApplicabilityRule carries effectiveDate and applicableDate (and transitionDate where relevant).",
+    "Supersession is expressed by linking the superseded ApplicabilityRule or Authority record to its successor in the same versioned graph (not as out-of-band annotation).",
+    "Exemption is expressed as an ApplicabilityRule whose appliesIf conditions evaluate to does-not-apply for the carve-out, not by silently dropping obligations.",
+    "Jurisdiction parent and child edges are populated for hierarchical regions (e.g. JUR-EU -> JUR-DE; JUR-US -> JUR-US-CA).",
+    "Lower-level invariants (Levels 1, 2, 4) continue to pass."
+  ],
+  "automated_checks": ["I1", "I2", "I3", "I4", "I16"],
+  "manual_checks": [
+    "Reviewer confirms packages/ontology/conformance/validate.mjs passes against the implementer's published ontology (so dangling jurisdiction or applicability references are caught).",
+    "Reviewer confirms the implementer can answer the applicability question for at least three (system, jurisdiction, date) triples that cross an effective-date boundary.",
+    "Reviewer confirms supersession and exemption are expressed in the graph rather than out-of-band."
+  ],
+  "references": {
+    "spec": "packages/ontology/SPEC.md",
+    "conformance_doc": "packages/ontology/CONFORMANCE.md#level-6--supports-versioned-jurisdictionapplicability-logic-effective-windows-supersession-exemption",
+    "invariants_source": "packages/frameworks/test/conformance.test.mjs",
+    "structural_validator": "packages/ontology/conformance/validate.mjs"
+  }
+}

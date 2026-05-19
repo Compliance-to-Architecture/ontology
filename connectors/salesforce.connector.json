@@ -1,0 +1,38 @@
+{
+  "connector_id": "salesforce",
+  "name": "Salesforce",
+  "vendor_url": "https://www.salesforce.com",
+  "evidence_types_emitted": ["log", "configuration"],
+  "auth": {
+    "method": "oauth2",
+    "scopes_required": [
+      "api",
+      "refresh_token",
+      "id"
+    ]
+  },
+  "probes": [
+    {
+      "probe_id": "salesforce-profile-and-permset-config",
+      "evidence_type": "configuration",
+      "frequency_default": "daily",
+      "description": "Synthetic placeholder. Verify against vendor docs. Captures Profiles, Permission Sets, and Sharing Rules as a configuration snapshot.",
+      "satisfies_controls_hint": ["IAM-RBAC-001", "SOC2-CC6"]
+    },
+    {
+      "probe_id": "salesforce-session-and-password-policy-config",
+      "evidence_type": "configuration",
+      "frequency_default": "daily",
+      "description": "Synthetic placeholder. Verify against vendor docs. Captures org-wide session settings, password policy, and MFA enforcement settings.",
+      "satisfies_controls_hint": ["IAM-MFA-001", "IAM-PWD-001"]
+    },
+    {
+      "probe_id": "salesforce-setup-audit-trail-log",
+      "evidence_type": "log",
+      "frequency_default": "hourly",
+      "description": "Synthetic placeholder. Verify against vendor docs. Streams the Setup Audit Trail (admin/setup changes) and login history events.",
+      "satisfies_controls_hint": ["AUDIT-LOG-001", "SOC2-CC7"]
+    }
+  ],
+  "notes": "Synthetic/illustrative manifest. Verify scopes, endpoints, and probe behaviour against current Salesforce documentation before wiring into a production engine."
+}

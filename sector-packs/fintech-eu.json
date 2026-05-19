@@ -1,0 +1,24 @@
+{
+  "sector_pack_id": "fintech-eu",
+  "name": "Fintech (EU)",
+  "description": "Curated framework bundle for fintech businesses placing services on the EU/EEA market — payment institutions, e-money institutions, crypto-asset service providers, lending and savings platforms.",
+  "version": "0.1.0",
+  "required_frameworks": ["GDPR", "DORA", "PCI_DSS", "ISO_27001"],
+  "recommended_frameworks": ["SOC_2", "ISO_42001", "EU_AI_ACT"],
+  "optional_frameworks": ["UK_GDPR", "NIS2"],
+  "crosswalk_pairs": [
+    { "a": "GDPR", "b": "ISO_27001", "rationale": "Art. 32 'appropriate technical and organisational measures' maps to ISO 27001 Annex A.5 / A.8 — the security baseline most EU DPAs expect to see evidenced." },
+    { "a": "GDPR", "b": "DORA", "rationale": "DORA Art. 9 / Art. 11 / Art. 28 give the financial-sector elaboration of GDPR Art. 32 security and Art. 28 processor due diligence." },
+    { "a": "ISO_27001", "b": "SOC_2", "rationale": "27001 Annex A.5 / A.8 controls evidence the SOC 2 Common Criteria (CC1 / CC6 / CC7 / CC8) — one operating cadence covers both attestations." },
+    { "a": "PCI_DSS", "b": "ISO_27001", "rationale": "Req. 3 / 4 / 7 / 8 / 10 ride on top of ISO 27001 A.8 cryptography + A.5 access control — minimise PCI scope by vaulting card data and lean on the ISO baseline." }
+  ],
+  "sequencing_notes": [
+    "1. Stand up ISO 27001 ISMS first — Annex A is the security baseline every later framework leans on.",
+    "2. Layer GDPR (Art. 5 / 6 / 13 / 14 / 30 / 32 / 33 / 35) on top of the ISMS; reuse Annex A evidence for Art. 32.",
+    "3. Add DORA ICT-risk-management, ICT-third-party-risk and digital-operational-resilience-testing chapters (in force since 17 January 2025).",
+    "4. PCI DSS only where cardholder data actually flows — if you vault to a PSP (Stripe / Adyen / Checkout.com) the SAQ-A scope is dramatically smaller; design tokenisation first.",
+    "5. SOC 2 Type II is an export deliverable for US enterprise buyers; once ISO 27001 is operating, SOC 2 is a controls-mapping exercise rather than a new programme.",
+    "6. ISO 42001 + EU AI Act only if the product makes automated decisions in scope of Art. 5 / 6 (credit scoring, AML triage, robo-advice) — Art. 22 GDPR also fires."
+  ],
+  "last_reviewed": "2026-05-16"
+}

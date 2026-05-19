@@ -1,0 +1,103 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://compliancetoarchitecture.com/schemas/layer/evidence-freshness-rule.schema.json",
+  "title": "EvidenceFreshnessRule",
+  "description": "Per-evidence-type rule that defines how often a piece of evidence must be refreshed, how long it must be retained, what provenance is required, and what happens when it goes stale. Evaluated against EvidenceObject.collectedAt to decide whether an audit pack may include it. Top-level shape may be a single record or an array of records.",
+  "definitions": {
+    "EvidenceFreshnessRule": {
+      "type": "object",
+      "required": [
+        "evidence_rule_id",
+        "evidence_type",
+        "required_frequency",
+        "max_age_days",
+        "retention_period",
+        "required_provenance",
+        "stale_behavior"
+      ],
+      "properties": {
+        "evidence_rule_id": {
+          "type": "string",
+          "pattern": "^EVRULE-[A-Z0-9-]+-[0-9]{3}$",
+          "description": "Stable identifier, e.g. EVRULE-IAM-ACCESS-REVIEW-FRESHNESS-001."
+        },
+        "evidence_type": {
+          "type": "string",
+          "enum": [
+            "policy",
+            "procedure",
+            "log",
+            "screenshot",
+            "report",
+            "attestation",
+            "configuration",
+            "training_record",
+            "incident_record",
+            "fria",
+            "dpia",
+            "contract"
+          ],
+          "description": "One of the 12 canonical EvidenceType kinds in @regunav/types."
+        },
+        "required_frequency": {
+          "type": "string",
+          "enum": [
+            "realtime",
+            "daily",
+            "weekly",
+            "monthly",
+            "quarterly",
+            "semiannually",
+            "annually",
+            "on-event",
+            "on-change"
+          ]
+        },
+        "max_age_days": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Maximum age (in days) at which the evidence is still considered fresh enough for an audit pack."
+        },
+        "retention_period": {
+          "type": "string",
+          "pattern": "^P(?!$)([0-9]+Y)?([0-9]+M)?([0-9]+W)?([0-9]+D)?(T([0-9]+H)?([0-9]+M)?([0-9]+S)?)?$",
+          "description": "ISO 8601 duration, e.g. P6Y for six years."
+        },
+        "required_provenance": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 },
+          "description": "Provenance signals that must be present on the evidence (e.g. signed-by-ciso, hash-chain-anchored, source-system=okta)."
+        },
+        "stale_behavior": {
+          "type": "string",
+          "enum": [
+            "mark_control_not_audit_ready",
+            "mark_control_at_risk",
+            "notify_owner",
+            "block_audit_pack"
+          ],
+          "description": "Action the platform MUST take when evidence exceeds max_age_days."
+        },
+        "applies_to_controls": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^CTRL-[A-Z0-9-]+$" },
+          "description": "Optional list of Control IDs this rule narrows to. Empty = applies to every control consuming this evidence_type."
+        },
+        "rationale": {
+          "type": "string",
+          "description": "Plain-language explanation of why the cadence was chosen, citing the clause that drives it."
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "oneOf": [
+    { "$ref": "#/definitions/EvidenceFreshnessRule" },
+    {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/definitions/EvidenceFreshnessRule" }
+    }
+  ]
+}

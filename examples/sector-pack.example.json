@@ -1,0 +1,73 @@
+[
+  {
+    "sector_pack_id": "fintech-eu",
+    "name": "Fintech (EU)",
+    "description": "Curated framework bundle for fintech businesses placing services on the EU/EEA market — payment institutions, e-money institutions, crypto-asset service providers, lending and savings platforms.",
+    "version": "0.1.0",
+    "required_frameworks": ["GDPR", "DORA", "PCI_DSS", "ISO_27001"],
+    "recommended_frameworks": ["SOC_2", "ISO_42001", "EU_AI_ACT"],
+    "optional_frameworks": ["UK_GDPR", "NIS2"],
+    "crosswalk_pairs": [
+      { "a": "GDPR", "b": "ISO_27001", "rationale": "Art. 32 'appropriate technical and organisational measures' maps to ISO 27001 Annex A.5 / A.8 — the security baseline most EU DPAs expect to see evidenced." },
+      { "a": "GDPR", "b": "DORA", "rationale": "DORA Art. 9 / Art. 11 / Art. 28 give the financial-sector elaboration of GDPR Art. 32 security and Art. 28 processor due diligence." },
+      { "a": "ISO_27001", "b": "SOC_2", "rationale": "27001 Annex A.5 / A.8 controls evidence the SOC 2 Common Criteria (CC1 / CC6 / CC7 / CC8) — one operating cadence covers both attestations." },
+      { "a": "PCI_DSS", "b": "ISO_27001", "rationale": "Req. 3 / 4 / 7 / 8 / 10 ride on top of ISO 27001 A.8 cryptography + A.5 access control — minimise PCI scope by vaulting card data and lean on the ISO baseline." }
+    ],
+    "sequencing_notes": [
+      "1. Stand up ISO 27001 ISMS first — Annex A is the security baseline every later framework leans on.",
+      "2. Layer GDPR (Art. 5 / 6 / 13 / 14 / 30 / 32 / 33 / 35) on top of the ISMS; reuse Annex A evidence for Art. 32.",
+      "3. Add DORA ICT-risk-management, ICT-third-party-risk and digital-operational-resilience-testing chapters (in force since 17 January 2025).",
+      "4. PCI DSS only where cardholder data actually flows — if you vault to a PSP (Stripe / Adyen / Checkout.com) the SAQ-A scope is dramatically smaller; design tokenisation first.",
+      "5. SOC 2 Type II is an export deliverable for US enterprise buyers; once ISO 27001 is operating, SOC 2 is a controls-mapping exercise rather than a new programme.",
+      "6. ISO 42001 + EU AI Act only if the product makes automated decisions in scope of Art. 5 / 6 (credit scoring, AML triage, robo-advice) — Art. 22 GDPR also fires."
+    ],
+    "last_reviewed": "2026-05-16"
+  },
+  {
+    "sector_pack_id": "healthtech-us",
+    "name": "Healthtech / Digital Health (US)",
+    "description": "Curated framework bundle for US digital-health businesses — telehealth, remote-patient-monitoring, clinical-decision-support SaaS, payer / provider integrations and consumer health apps that touch PHI.",
+    "version": "0.1.0",
+    "required_frameworks": ["HIPAA", "SOC_2", "NIST_CSF"],
+    "recommended_frameworks": ["ISO_27001", "NIST_AI_RMF", "GDPR"],
+    "optional_frameworks": ["ISO_27701", "CCPA"],
+    "crosswalk_pairs": [
+      { "a": "ISO_27001", "b": "SOC_2", "rationale": "ISO 27001 Annex A.5 / A.8 controls evidence the SOC 2 Common Criteria — health-payer security questionnaires usually map both sides automatically." },
+      { "a": "NIST_CSF", "b": "ISO_27001", "rationale": "CSF 2.0 functions cross-walk to ISO 27001 Clause 4.1 + Annex A.5 / A.8 — used by HHS / OCR and most health-system enterprise-security teams." },
+      { "a": "GDPR", "b": "HIPAA", "rationale": "GDPR Art. 9 special-category protections + Art. 32 / 33 overlap with HIPAA §164.308 / §164.312 / §164.404 — re-use evidence when also serving EU patients or research subjects." },
+      { "a": "GDPR", "b": "ISO_27701", "rationale": "ISO 27701 Annex C is the authoritative GDPR mapping — if you already operate ISO 27001, 27701 is the standards-based way to evidence GDPR for EU patient data." }
+    ],
+    "sequencing_notes": [
+      "1. HIPAA first — Privacy Rule (§164.500 et seq.), Security Rule (§164.302–§164.318), Breach Notification Rule (§164.400 et seq.) plus BAA paper with every downstream processor.",
+      "2. SOC 2 Type II is the standard buyer-side asks of provider IT and payer security teams — operate the 12-month observation window in parallel with HIPAA Security Rule controls.",
+      "3. NIST CSF 2.0 as the organising taxonomy for risk reporting to clinical-IT governance committees.",
+      "4. NIST AI RMF 1.0 if any clinical-decision-support, triage or prior-authorisation feature uses ML — FDA SaMD overlay applies for diagnostic claims.",
+      "5. GDPR + ISO 27701 only if you process EU patient or research-subject data (clinical-trial sponsors, multi-region telehealth).",
+      "6. CCPA / CPRA notice-at-collection and right-to-know flows where consumer-health (non-HIPAA) data is involved (wellness apps outside a HIPAA-covered relationship)."
+    ],
+    "last_reviewed": "2026-05-16"
+  },
+  {
+    "sector_pack_id": "ai-foundation-model-eu",
+    "name": "AI Foundation Model Provider (EU market)",
+    "description": "Curated framework bundle for a provider of a general-purpose AI model (GPAI) — including those with systemic risk under EU AI Act Art. 51 — placing the model on the EU market or making it available to deployers in the EU.",
+    "version": "0.1.0",
+    "required_frameworks": ["EU_AI_ACT", "GDPR", "ISO_42001"],
+    "recommended_frameworks": ["NIST_AI_RMF", "ISO_27001", "NIS2"],
+    "optional_frameworks": ["ISO_27701", "UK_GDPR"],
+    "crosswalk_pairs": [
+      { "a": "EU_AI_ACT", "b": "ISO_42001", "rationale": "Art. 9 / 11 / 12 / 17 risk-management, technical documentation, record-keeping and QMS obligations map directly to ISO 42001 Cl. 6.1 / 7.2 / 9.1 / 4.1 — 42001 is the standards-based way to evidence the GPAI / high-risk AI QMS." },
+      { "a": "EU_AI_ACT", "b": "NIST_AI_RMF", "rationale": "Art. 9 maps to NIST AI RMF MAP-1 / MEASURE-1 / MANAGE-1; Art. 14 to GOVERN-2; Art. 15 to MEASURE-2 — NIST AI RMF gives operational substance to the Act's process requirements." },
+      { "a": "GDPR", "b": "ISO_27001", "rationale": "Training-data ingestion and inference logging both fall under Art. 32 — re-use ISO 27001 Annex A.5 / A.8 evidence for the security narrative." }
+    ],
+    "sequencing_notes": [
+      "1. EU AI Act Art. 53 (GPAI obligations) is the gating release prerequisite — technical documentation per Annex XI, training-data summary per Art. 53(1)(d), copyright-policy disclosure per Art. 53(1)(c), downstream-provider information per Art. 53(1)(b) MUST be ready before customer-facing release in the EU.",
+      "2. If the model crosses the systemic-risk threshold (Art. 51 — currently 10^25 FLOPs cumulative compute), Art. 55 obligations add model-evaluation, adversarial-testing, serious-incident reporting and cybersecurity protection — plan for these from training-run inception, not post-hoc.",
+      "3. ISO 42001 AIMS in parallel — 42001 Cl. 4.1 / 6.1 / 7.5 / 9.1 give the auditable QMS shape the AI Act assumes; certification is the most defensible posture against EU-AI-Office inquiries.",
+      "4. GDPR for training data — lawful basis (Art. 6 / 9), DPIA (Art. 35) for large-scale scraping, transparency (Art. 13 / 14) to data subjects whose data is in training corpora, plus data-subject rights (Art. 15–22) including the right against solely-automated decisions.",
+      "5. NIST AI RMF as the operational profile — its MAP / MEASURE / MANAGE / GOVERN structure documents day-to-day risk-handling that satisfies both EU AI Act Art. 9 and many US enterprise-AI questionnaires.",
+      "6. ISO 27001 + NIS2 if you operate the inference infrastructure yourself — the model-API serving plane is in scope as an 'important entity' digital service under NIS2 Annex II."
+    ],
+    "last_reviewed": "2026-05-16"
+  }
+]

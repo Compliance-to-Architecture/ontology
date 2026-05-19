@@ -1,0 +1,25 @@
+{
+  "sector_pack_id": "saas-b2b-global",
+  "name": "SaaS B2B (Global)",
+  "description": "Curated framework bundle for a horizontal B2B SaaS vendor selling globally — productivity, CRM, dev-tools, analytics. Assumes customer-data hosting in cloud, mixed US + EU + UK buyer base.",
+  "version": "0.1.0",
+  "required_frameworks": ["ISO_27001", "SOC_2", "GDPR"],
+  "recommended_frameworks": ["ISO_27701", "NIST_CSF"],
+  "optional_frameworks": ["HIPAA", "PCI_DSS", "UK_GDPR", "CCPA"],
+  "crosswalk_pairs": [
+    { "a": "ISO_27001", "b": "SOC_2", "rationale": "27001 Annex A.5 / A.8 controls evidence the SOC 2 Common Criteria (CC1 / CC6 / CC7 / CC8) — operate one ISMS, produce both attestations." },
+    { "a": "GDPR", "b": "ISO_27001", "rationale": "Art. 32 maps to ISO 27001 Annex A.5 / A.8 — re-use ISMS evidence in the GDPR Art. 32 / 33 narrative for EU enterprise security questionnaires." },
+    { "a": "GDPR", "b": "ISO_27701", "rationale": "ISO 27701 Annex C provides the authoritative GDPR mapping — the standards-based way to make an Art. 5 / 6 / 30 / 35 claim to customers." },
+    { "a": "NIST_CSF", "b": "ISO_27001", "rationale": "CSF 2.0 GV / ID / PR / DE / RS / RC functions cross-walk to ISO 27001 — the lingua franca for US federal and US-bank customer-security questionnaires." }
+  ],
+  "sequencing_notes": [
+    "1. ISO 27001 ISMS first — it is the spine of every later certification and the framework most enterprise procurement teams ask about first.",
+    "2. SOC 2 Type II in parallel with ISO 27001 operation — most controls overlap; the difference is largely report-shape (AICPA narrative vs. ISO Statement of Applicability).",
+    "3. GDPR end-to-end — DPA template (Art. 28), RoPA (Art. 30), DSAR runbook (Art. 12–22), DPIA (Art. 35), 72h breach process (Art. 33), SCCs / IDTA for cross-border transfers (Chapter V).",
+    "4. ISO 27701 once 27001 is operating and you start fielding Annex C-style mapping requests from large EU customers.",
+    "5. NIST CSF 2.0 as the organising taxonomy for risk reporting and US public-sector + bank questionnaires.",
+    "6. HIPAA / PCI DSS only if covered-entity customers (sign BAAs) or you actually handle cardholder data (vault to a PSP wherever possible).",
+    "7. UK GDPR is largely a delta on EU GDPR — confirm UK ICO IDTA / Addendum to SCCs, UK representative under DPA 2018 if no UK establishment."
+  ],
+  "last_reviewed": "2026-05-16"
+}

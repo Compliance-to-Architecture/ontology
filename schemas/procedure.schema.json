@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://compliancetoarchitecture.com/schemas/evidence/procedure.schema.json",
+  "title": "Procedure evidence",
+  "description": "A documented, repeatable operational workflow that implements one or more policy clauses (e.g. quarterly access review, incident triage runbook).",
+  "type": "object",
+  "required": ["id", "title", "policyRefs", "ownerPrincipalId", "version", "uri", "sha256"],
+  "properties": {
+    "id":               { "type": "string", "pattern": "^EV-PROC-[A-Z0-9-]+$" },
+    "title":            { "type": "string", "minLength": 1 },
+    "policyRefs":       { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "ownerPrincipalId": { "type": "string" },
+    "version":          { "type": "string" },
+    "uri":              { "type": "string", "format": "uri" },
+    "sha256":           { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "frequency":        { "type": "string", "enum": ["daily","weekly","monthly","quarterly","annually","ad-hoc","continuous"] },
+    "lastExecutedAt":   { "type": "string", "format": "date-time" },
+    "frameworks":       { "type": "array", "items": { "type": "string" } },
+    "controls":         { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}

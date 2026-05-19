@@ -1,0 +1,54 @@
+{
+  "connector_id": "azure-ad",
+  "name": "Microsoft Entra ID (Azure AD)",
+  "vendor_url": "https://www.microsoft.com/en-us/security/business/identity-access/microsoft-entra-id",
+  "evidence_types_emitted": ["configuration", "log", "attestation", "training_record"],
+  "auth": {
+    "method": "oauth2",
+    "scopes_required": [
+      "Directory.Read.All",
+      "Policy.Read.All",
+      "AuditLog.Read.All",
+      "AccessReview.Read.All",
+      "LearningContent.Read.All"
+    ]
+  },
+  "probes": [
+    {
+      "probe_id": "entra-conditional-access-config",
+      "evidence_type": "configuration",
+      "frequency_default": "daily",
+      "description": "Synthetic placeholder. Verify against vendor docs. Captures Conditional Access policy set as a configuration snapshot.",
+      "satisfies_controls_hint": ["IAM-CA-001", "SOC2-CC6"]
+    },
+    {
+      "probe_id": "entra-authentication-methods-config",
+      "evidence_type": "configuration",
+      "frequency_default": "daily",
+      "description": "Synthetic placeholder. Verify against vendor docs. Captures tenant authentication-methods policy (MFA, passwordless, FIDO2).",
+      "satisfies_controls_hint": ["IAM-MFA-001"]
+    },
+    {
+      "probe_id": "entra-signin-and-audit-log",
+      "evidence_type": "log",
+      "frequency_default": "hourly",
+      "description": "Synthetic placeholder. Verify against vendor docs. Streams sign-in and directory-audit logs.",
+      "satisfies_controls_hint": ["AUDIT-LOG-001", "SOC2-CC7"]
+    },
+    {
+      "probe_id": "entra-access-review-attestation",
+      "evidence_type": "attestation",
+      "frequency_default": "quarterly",
+      "description": "Synthetic placeholder. Verify against vendor docs. Captures completed Entra ID Governance access-review decisions.",
+      "satisfies_controls_hint": ["ACCESS-REVIEW-001", "SOC2-CC6.3"]
+    },
+    {
+      "probe_id": "entra-viva-learning-training-record",
+      "evidence_type": "training_record",
+      "frequency_default": "monthly",
+      "description": "Synthetic placeholder. Verify against vendor docs. Reads security/compliance training completions from a Viva Learning integration.",
+      "satisfies_controls_hint": ["TRAIN-SEC-001"]
+    }
+  ],
+  "notes": "Synthetic/illustrative manifest. Verify scopes, endpoints, and probe behaviour against current Microsoft Graph documentation before wiring into a production engine."
+}

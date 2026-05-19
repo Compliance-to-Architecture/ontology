@@ -1,0 +1,49 @@
+[
+  {
+    "risk_link_id": "RLNK-IAM-PRIVILEGED-ACCESS-001",
+    "risk_scenario_id": "RISK-PRIV-ESCALATION-001",
+    "control_id": "CTRL-IAM-ACCESS-REVIEW-001",
+    "tenant_id": "acme-corp",
+    "mitigation_kind": "detective",
+    "inherent_likelihood": "likely",
+    "inherent_impact": "major",
+    "residual_likelihood": "unlikely",
+    "residual_impact": "moderate",
+    "residual_risk_acceptance": "accepted",
+    "established_at": "2026-01-15T09:00:00Z",
+    "last_reviewed_at": "2026-04-15T09:00:00Z",
+    "owner_role": "ciso",
+    "notes": "Quarterly access review reduces privilege creep risk; combined with privileged-access-management automation."
+  },
+  {
+    "risk_link_id": "RLNK-AI-BIAS-HIRE-001",
+    "risk_scenario_id": "RISK-AI-DISPARATE-IMPACT-001",
+    "control_id": "CTRL-AI-FAIRNESS-EVAL-001",
+    "tenant_id": "acme-corp",
+    "mitigation_kind": "preventative",
+    "inherent_likelihood": "possible",
+    "inherent_impact": "catastrophic",
+    "residual_likelihood": "unlikely",
+    "residual_impact": "major",
+    "residual_risk_acceptance": "further-reduce-planned",
+    "established_at": "2026-03-01T00:00:00Z",
+    "owner_role": "dpo",
+    "notes": "Pre-deployment fairness eval + ongoing drift monitoring. Residual risk acknowledged — fairness metrics are imperfect for the Acme Hire Score use case; further reduction planned via human-in-the-loop final review."
+  },
+  {
+    "risk_link_id": "RLNK-DATA-BREACH-EU-001",
+    "risk_scenario_id": "RISK-PII-EXFIL-EU-001",
+    "control_id": "CTRL-DATA-ENCRYPTION-AT-REST-001",
+    "tenant_id": "acme-corp",
+    "mitigation_kind": "preventative",
+    "inherent_likelihood": "possible",
+    "inherent_impact": "major",
+    "residual_likelihood": "rare",
+    "residual_impact": "moderate",
+    "residual_risk_acceptance": "accepted",
+    "established_at": "2026-02-01T00:00:00Z",
+    "last_reviewed_at": "2026-05-01T00:00:00Z",
+    "owner_role": "ciso",
+    "notes": "AES-256 at rest in R2 + customer-managed keys for tier-1 EU customers. Catastrophic impact (GDPR Art. 33 + reputational) reduced to moderate via encryption + WORM audit log."
+  }
+]

@@ -1,0 +1,66 @@
+---
+# CTRL-IAM-ACCESS-REVIEW-001 — Quarterly privileged access review.
+# Authority crosswalk: ISO 27001 A.5.18, SOC 2 CC6.3, PCI DSS 7.2.5, NIST CSF PR.AC-4.
+# Apache-2.0.
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: "default"
+  resource: "cta.access_review"
+  importDerivedRoles: ["cta_common_roles"]
+  rules:
+    - actions: ["*"]
+      effect: EFFECT_ALLOW
+      roles: ["super_admin"]
+
+    # Read / list: any tenant member with the review access role.
+    - actions: ["read","list","get"]
+      effect: EFFECT_ALLOW
+      derivedRoles: ["tenant_member"]
+
+    # Create + update: tenant_admin or compliance_officer.
+    - actions: ["create","update"]
+      effect: EFFECT_ALLOW
+      derivedRoles: ["tenant_admin_only"]
+
+    # Approve / sign-off: requires four_eyes_approver — distinct principal
+    # from creator AND from the subject under review. This is the hard
+    # segregation-of-duties gate.
+    - actions: ["approve","sign_off"]
+      effect: EFFECT_ALLOW
+      derivedRoles: ["four_eyes_approver"]
+
+    # Hard-deny self-approval. Belt-and-braces with the four_eyes_approver
+    # condition — even if a future role bypasses the derived-role check,
+    # this rule fires and the request is denied.
+    - actions: ["approve","sign_off"]
+      effect: EFFECT_DENY
+      roles: ["*"]
+      condition:
+        match:
+          any:
+            of:
+              - expr: |
+                  request.resource.attr.creator_id != "" &&
+                  request.resource.attr.creator_id == request.principal.id
+              - expr: |
+                  request.resource.attr.subject_id != "" &&
+                  request.resource.attr.subject_id == request.principal.id
+
+    # Suspended tenants cannot do anything.
+    - actions: ["*"]
+      effect: EFFECT_DENY
+      roles: ["*"]
+      condition:
+        match:
+          expr: request.principal.attr.tenant_status == "suspended"
+
+    # Cross-tenant lockout.
+    - actions: ["*"]
+      effect: EFFECT_DENY
+      roles: ["*"]
+      condition:
+        match:
+          expr: |
+            request.resource.attr.tenant_id != "" &&
+            request.resource.attr.tenant_id != request.principal.attr.tenant_id &&
+            !"super_admin" in request.principal.roles

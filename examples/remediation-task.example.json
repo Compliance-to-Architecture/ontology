@@ -1,0 +1,48 @@
+[
+  {
+    "remediation_task_id": "RMD-2026-0001",
+    "title": "Roll quarterly access review for Q2 on Okta — Q1 sample identified 14 stale grants",
+    "description": "Q1 access review (TEST-IAM-ACCESS-REVIEW-001) flagged 14 dormant Okta accounts with privileged roles. Need to deprovision + re-run the review with the deprovisioning evidence attached.",
+    "trigger_kind": "control-test-fail",
+    "trigger_ref": "TEST-IAM-ACCESS-REVIEW-001:2026-Q1",
+    "control_id": "CTRL-IAM-ACCESS-REVIEW-001",
+    "tenant_id": "acme-corp",
+    "assignee_role": "security_lead",
+    "severity": "high",
+    "due_at": "2026-06-30T17:00:00Z",
+    "status": "in-progress",
+    "verification_check": "TEST-IAM-ACCESS-REVIEW-001",
+    "created_at": "2026-04-15T10:30:00Z"
+  },
+  {
+    "remediation_task_id": "RMD-2026-0002",
+    "title": "Re-assess Annex III applicability under EU AI Act Digital Omnibus dating",
+    "description": "Change event CE-2026-0001 revised high-risk application dates. Re-walk APP-EUAI-HIGH-RISK-ANNEXIII-001 + downstream controls; confirm whether the staggered date applies to our Acme Hire Score deployment.",
+    "trigger_kind": "change-event-reassess",
+    "trigger_ref": "CE-2026-0001",
+    "control_id": "CTRL-AI-EU-HIGH-RISK-ANNEX-III-001",
+    "tenant_id": "acme-corp",
+    "assignee_role": "compliance_officer",
+    "severity": "medium",
+    "due_at": "2026-09-01T17:00:00Z",
+    "status": "open",
+    "verification_check": "TEST-AI-ANNEX-III-CONFORMITY-001",
+    "created_at": "2026-05-16T16:00:00Z"
+  },
+  {
+    "remediation_task_id": "RMD-2026-0003",
+    "title": "Decommission legacy AS/400 payroll system before exception expires",
+    "description": "Exception EXC-2026-0002 carved out the legacy AS/400 from access-review automation until decommission. Decommission deadline 2026-12-31. Task tracks the migration to the new payroll service.",
+    "trigger_kind": "exception-expiring",
+    "trigger_ref": "EXC-2026-0002",
+    "control_id": "CTRL-IAM-ACCESS-REVIEW-001",
+    "tenant_id": "acme-corp",
+    "assignee_role": "cto",
+    "severity": "high",
+    "due_at": "2026-12-15T17:00:00Z",
+    "status": "blocked",
+    "compensating_controls": ["CTRL-IAM-MANUAL-MONTHLY-REVIEW-001"],
+    "verification_check": "TEST-DECOMMISSION-AS400-VERIFICATION-001",
+    "created_at": "2026-03-01T09:00:00Z"
+  }
+]

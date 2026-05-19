@@ -1,0 +1,30 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://compliancetoarchitecture.com/schemas/evidence/dpia.schema.json",
+  "title": "DPIA evidence (GDPR Art. 35)",
+  "description": "Data Protection Impact Assessment for high-risk processing of personal data (GDPR Art. 35). Required before processing starts.",
+  "type": "object",
+  "required": ["id", "processingActivityId", "controllerPrincipalId", "submittedAt", "natureOfProcessing", "legalBasis", "necessityAndProportionality", "risksToDataSubjects", "mitigationMeasures"],
+  "properties": {
+    "id":                          { "type": "string", "pattern": "^EV-DPIA-[A-Z0-9-]+$" },
+    "processingActivityId":        { "type": "string" },
+    "controllerPrincipalId":       { "type": "string" },
+    "dpoConsultedPrincipalId":     { "type": "string" },
+    "submittedAt":                 { "type": "string", "format": "date-time" },
+    "approvedAt":                  { "type": "string", "format": "date-time" },
+    "approvedBy":                  { "type": "string" },
+    "natureOfProcessing":          { "type": "string" },
+    "purposesOfProcessing":        { "type": "array", "items": { "type": "string" } },
+    "legalBasis":                  { "type": "string", "enum": ["consent","contract","legal_obligation","vital_interests","public_task","legitimate_interests"] },
+    "necessityAndProportionality": { "type": "string", "minLength": 1 },
+    "risksToDataSubjects":         { "type": "string", "minLength": 1 },
+    "mitigationMeasures":          { "type": "string", "minLength": 1 },
+    "specialCategoriesProcessed":  { "type": "array", "items": { "type": "string" } },
+    "automatedDecisionMaking":     { "type": "boolean" },
+    "internationalTransfers":      { "type": "array", "items": { "type": "string" } },
+    "supervisoryAuthorityConsultedAt": { "type": "string", "format": "date-time" },
+    "frameworks":                  { "type": "array", "items": { "type": "string" } },
+    "controls":                    { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}

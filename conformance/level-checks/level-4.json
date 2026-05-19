@@ -1,0 +1,32 @@
+{
+  "level": 4,
+  "name": "Emits evidence objects (every control has evidenceTypes from the 12-kind union)",
+  "summary": "Every control declares a non-empty evidenceTypes array, with each entry drawn from the 12-kind EvidenceType union defined in packages/types/src/index.ts.",
+  "requirements": [
+    "Every Control.evidenceTypes is non-empty.",
+    "Every entry in Control.evidenceTypes is one of the 12 canonical EvidenceType values.",
+    "Lower-level invariants continue to pass (the framework still satisfies Levels 1 and 2)."
+  ],
+  "evidence_type_union": [
+    "policy",
+    "procedure",
+    "log",
+    "screenshot",
+    "report",
+    "attestation",
+    "configuration",
+    "training_record",
+    "incident_record",
+    "fria",
+    "dpia",
+    "contract"
+  ],
+  "automated_checks": ["I9"],
+  "manual_checks": [],
+  "references": {
+    "spec": "packages/ontology/SPEC.md",
+    "conformance_doc": "packages/ontology/CONFORMANCE.md#level-4--emits-evidence-objects-every-control-has-evidencetypes-from-the-12-kind-union",
+    "invariants_source": "packages/frameworks/test/conformance.test.mjs",
+    "evidence_type_definition": "packages/types/src/index.ts"
+  }
+}

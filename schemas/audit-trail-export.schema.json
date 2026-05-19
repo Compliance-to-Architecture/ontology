@@ -1,0 +1,27 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://compliancetoarchitecture.com/schemas/evidence/audit-trail-export.schema.json",
+  "title": "Audit-trail export evidence",
+  "description": "Time-bounded export of WORM hash-chained audit events. Distinct from a generic `log` because it carries the head + tail hashes that prove tamper-evidence across the entire window.",
+  "type": "object",
+  "required": ["id", "tenantId", "windowStart", "windowEnd", "rowCount", "headHash", "tailHash", "exportedAt", "uri", "sha256"],
+  "properties": {
+    "id":           { "type": "string", "pattern": "^EV-ATE-[A-Z0-9-]+$" },
+    "tenantId":     { "type": "string" },
+    "windowStart":  { "type": "string", "format": "date-time" },
+    "windowEnd":    { "type": "string", "format": "date-time" },
+    "rowCount":     { "type": "integer", "minimum": 0 },
+    "headHash":     { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "tailHash":     { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "verifyResult": { "type": "object", "properties": {
+      "ok":      { "type": "boolean" },
+      "checked": { "type": "integer" },
+      "brokenAt":{ "type": "string" }
+    } },
+    "exportedAt":   { "type": "string", "format": "date-time" },
+    "exportedBy":   { "type": "string" },
+    "uri":          { "type": "string", "format": "uri" },
+    "sha256":       { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  },
+  "additionalProperties": false
+}

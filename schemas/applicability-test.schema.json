@@ -1,0 +1,161 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://compliancetoarchitecture.com/schemas/layer/applicability-test.schema.json",
+  "title": "ApplicabilityTest (L3, first-class)",
+  "description": "A first-class, machine-evaluable Applicability Test object. Given a facet context, an Applicability Test decides whether a specific authority clause applies to a given org / product / activity, and emits an obligation set (and optional risk class). This is the canonical contract for the AST runtime engine at packages/engines/src/applicability-ast.ts.",
+  "type": "object",
+  "required": [
+    "applicability_test_id",
+    "authority_id",
+    "clause",
+    "applies_when",
+    "role_sensitive",
+    "roles",
+    "output",
+    "version",
+    "source_provenance"
+  ],
+  "properties": {
+    "applicability_test_id": {
+      "type": "string",
+      "description": "Canonical ID. Convention: APP-<FRAMEWORK>-<TOPIC>-NNN.",
+      "pattern": "^APP-[A-Z0-9]+(-[A-Z0-9]+)+-[0-9]{3}$"
+    },
+    "authority_id": {
+      "type": "string",
+      "description": "Versioned authority reference, e.g. eu-ai-act@2024-1689, gdpr@679-2016, dora@2554-2022.",
+      "minLength": 1
+    },
+    "clause": {
+      "type": "string",
+      "description": "Authority clause locator, e.g. 'Annex III(4)', 'Art. 3(2)', 'Art. 2(1)'.",
+      "minLength": 1
+    },
+    "applies_when": {
+      "type": "array",
+      "description": "Conjunction of facet predicates. All predicates MUST evaluate true for the test to fire.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["facet", "operator", "value"],
+        "properties": {
+          "facet": {
+            "type": "string",
+            "description": "Facet name from the ReguNav facet taxonomy (e.g. 'jurisdiction', 'aiUseCase', 'entityKind').",
+            "minLength": 1
+          },
+          "operator": {
+            "type": "string",
+            "enum": ["eq", "neq", "in", "not-in", "gte", "lte", "matches", "exists", "not-exists"]
+          },
+          "value": {
+            "description": "Operand. Scalar for eq/neq/gte/lte/matches, array for in/not-in, omitted-but-still-present for exists/not-exists.",
+            "oneOf": [
+              { "type": "string" },
+              { "type": "number" },
+              { "type": "boolean" },
+              { "type": "null" },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    { "type": "string" },
+                    { "type": "number" },
+                    { "type": "boolean" }
+                  ]
+                }
+              }
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "role_sensitive": {
+      "type": "boolean",
+      "description": "True if the test's outcome depends on which ReguNav actor role evaluates it."
+    },
+    "roles": {
+      "type": "array",
+      "description": "Roles for which this test is authoritative.",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "enum": [
+          "provider",
+          "deployer",
+          "controller",
+          "processor",
+          "vendor",
+          "ict-provider",
+          "employer"
+        ]
+      }
+    },
+    "output": {
+      "type": "object",
+      "description": "What firing this test emits into the obligation graph.",
+      "required": ["obligation_set_id"],
+      "properties": {
+        "obligation_set_id": {
+          "type": "string",
+          "description": "Reference to a canonical obligation set (e.g. OBLSET-EUAI-HIGHRISK-CORE).",
+          "minLength": 1
+        },
+        "risk_class": {
+          "type": "string",
+          "description": "Optional risk classification emitted alongside the obligation set.",
+          "enum": [
+            "prohibited",
+            "high-risk",
+            "limited-risk",
+            "minimal-risk",
+            "gpai",
+            "applies",
+            "applies-extraterritorial",
+            "not-applicable"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "version": {
+      "type": "string",
+      "description": "Semantic version of this test definition.",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(?:-[0-9A-Za-z.-]+)?(?:\\+[0-9A-Za-z.-]+)?$"
+    },
+    "source_provenance": {
+      "type": "array",
+      "description": "Chain of authoritative sources this test derives from. At least one required.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["authority_id", "clause"],
+        "properties": {
+          "authority_id": { "type": "string", "minLength": 1 },
+          "clause": { "type": "string", "minLength": 1 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "effective_from": {
+      "type": "string",
+      "description": "ISO 8601 date when this test becomes effective.",
+      "format": "date"
+    },
+    "effective_until": {
+      "type": "string",
+      "description": "ISO 8601 date when this test is retired.",
+      "format": "date"
+    },
+    "supersedes": {
+      "type": "array",
+      "description": "List of applicability_test_id values that this test replaces.",
+      "items": {
+        "type": "string",
+        "pattern": "^APP-[A-Z0-9]+(-[A-Z0-9]+)+-[0-9]{3}$"
+      }
+    }
+  },
+  "additionalProperties": false
+}

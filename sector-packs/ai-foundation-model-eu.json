@@ -1,0 +1,23 @@
+{
+  "sector_pack_id": "ai-foundation-model-eu",
+  "name": "AI Foundation Model Provider (EU market)",
+  "description": "Curated framework bundle for a provider of a general-purpose AI model (GPAI) — including those with systemic risk under EU AI Act Art. 51 — placing the model on the EU market or making it available to deployers in the EU.",
+  "version": "0.1.0",
+  "required_frameworks": ["EU_AI_ACT", "GDPR", "ISO_42001"],
+  "recommended_frameworks": ["NIST_AI_RMF", "ISO_27001", "NIS2"],
+  "optional_frameworks": ["ISO_27701", "UK_GDPR"],
+  "crosswalk_pairs": [
+    { "a": "EU_AI_ACT", "b": "ISO_42001", "rationale": "Art. 9 / 11 / 12 / 17 risk-management, technical documentation, record-keeping and QMS obligations map directly to ISO 42001 Cl. 6.1 / 7.2 / 9.1 / 4.1 — 42001 is the standards-based way to evidence the GPAI / high-risk AI QMS." },
+    { "a": "EU_AI_ACT", "b": "NIST_AI_RMF", "rationale": "Art. 9 maps to NIST AI RMF MAP-1 / MEASURE-1 / MANAGE-1; Art. 14 to GOVERN-2; Art. 15 to MEASURE-2 — NIST AI RMF gives operational substance to the Act's process requirements." },
+    { "a": "GDPR", "b": "ISO_27001", "rationale": "Training-data ingestion and inference logging both fall under Art. 32 — re-use ISO 27001 Annex A.5 / A.8 evidence for the security narrative." }
+  ],
+  "sequencing_notes": [
+    "1. EU AI Act Art. 53 (GPAI obligations) is the gating release prerequisite — technical documentation per Annex XI, training-data summary per Art. 53(1)(d), copyright-policy disclosure per Art. 53(1)(c), downstream-provider information per Art. 53(1)(b) MUST be ready before customer-facing release in the EU.",
+    "2. If the model crosses the systemic-risk threshold (Art. 51 — currently 10^25 FLOPs cumulative compute), Art. 55 obligations add model-evaluation, adversarial-testing, serious-incident reporting and cybersecurity protection — plan for these from training-run inception, not post-hoc.",
+    "3. ISO 42001 AIMS in parallel — 42001 Cl. 4.1 / 6.1 / 7.5 / 9.1 give the auditable QMS shape the AI Act assumes; certification is the most defensible posture against EU-AI-Office inquiries.",
+    "4. GDPR for training data — lawful basis (Art. 6 / 9), DPIA (Art. 35) for large-scale scraping, transparency (Art. 13 / 14) to data subjects whose data is in training corpora, plus data-subject rights (Art. 15–22) including the right against solely-automated decisions.",
+    "5. NIST AI RMF as the operational profile — its MAP / MEASURE / MANAGE / GOVERN structure documents day-to-day risk-handling that satisfies both EU AI Act Art. 9 and many US enterprise-AI questionnaires.",
+    "6. ISO 27001 + NIS2 if you operate the inference infrastructure yourself — the model-API serving plane is in scope as an 'important entity' digital service under NIS2 Annex II."
+  ],
+  "last_reviewed": "2026-05-16"
+}

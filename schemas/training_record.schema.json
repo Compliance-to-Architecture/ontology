@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://compliancetoarchitecture.com/schemas/evidence/training_record.schema.json",
+  "title": "Training record evidence",
+  "description": "Per-principal completion record for a mandatory training (e.g. EU AI Act Art. 4 AI literacy, GDPR awareness). Required for audit + breach defence.",
+  "type": "object",
+  "required": ["id", "principalId", "courseId", "courseTitle", "completedAt", "score"],
+  "properties": {
+    "id":            { "type": "string", "pattern": "^EV-TRN-[A-Z0-9-]+$" },
+    "principalId":   { "type": "string" },
+    "principalRole": { "type": "string" },
+    "courseId":      { "type": "string" },
+    "courseTitle":   { "type": "string" },
+    "completedAt":   { "type": "string", "format": "date-time" },
+    "score":         { "type": "number", "minimum": 0, "maximum": 100 },
+    "passingScore":  { "type": "number" },
+    "expiresAt":     { "type": "string", "format": "date-time" },
+    "certificateUri":{ "type": "string", "format": "uri" },
+    "frameworks":    { "type": "array", "items": { "type": "string" } },
+    "controls":      { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}

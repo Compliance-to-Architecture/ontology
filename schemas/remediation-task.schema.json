@@ -1,0 +1,140 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://compliancetoarchitecture.com/schemas/remediation-task.schema.json",
+  "title": "RemediationTask",
+  "description": "Turns a gap (failed Control Test / missing Evidence / stale-freshness alert / exception expiring / change-event re-assess) into an owned engineering/compliance work item with a due date, assignee, and verification check. The bridge from 'audit found a gap' to 'work is happening to close it'.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "remediation_task_id",
+    "title",
+    "trigger_kind",
+    "trigger_ref",
+    "control_id",
+    "tenant_id",
+    "assignee_role",
+    "severity",
+    "due_at",
+    "status",
+    "created_at"
+  ],
+  "properties": {
+    "remediation_task_id": {
+      "type": "string",
+      "description": "Stable identifier. Convention RMD-YYYY-NNNN.",
+      "pattern": "^RMD-[0-9]{4}-[0-9]{4}$"
+    },
+    "title": {
+      "type": "string",
+      "description": "One-line human title (max 120 chars).",
+      "minLength": 1,
+      "maxLength": 120
+    },
+    "description": {
+      "type": "string",
+      "description": "What needs to be done + why. Markdown allowed."
+    },
+    "trigger_kind": {
+      "type": "string",
+      "enum": [
+        "control-test-fail",
+        "evidence-missing",
+        "evidence-stale",
+        "exception-expiring",
+        "change-event-reassess",
+        "audit-finding",
+        "manual"
+      ],
+      "description": "What surfaced this gap."
+    },
+    "trigger_ref": {
+      "type": "string",
+      "description": "Identifier of the triggering artefact (control test id, evidence id, exception id, change event id, etc.). Free-form so consumers can dereference however the trigger_kind requires."
+    },
+    "control_id": {
+      "type": "string",
+      "description": "Control the remediation works on.",
+      "pattern": "^CTRL-[A-Z0-9-]+$"
+    },
+    "tenant_id": {
+      "type": "string",
+      "description": "Owner tenant."
+    },
+    "assignee_role": {
+      "type": "string",
+      "enum": [
+        "ciso",
+        "security_lead",
+        "dpo",
+        "privacy_officer",
+        "cto",
+        "head_of_engineering",
+        "ceo",
+        "board_member",
+        "compliance_officer",
+        "tenant_admin",
+        "operations",
+        "auditor",
+        "framework_editor",
+        "user"
+      ],
+      "description": "Role responsible for completion. Matches the Cerbos snake_case role convention."
+    },
+    "assignee_id": {
+      "type": "string",
+      "description": "Optional specific user id; tenant-scoped."
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["critical", "high", "medium", "low"],
+      "description": "Impact + urgency of the gap."
+    },
+    "due_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Hard deadline. Past-due tasks block the next audit pack."
+    },
+    "status": {
+      "type": "string",
+      "enum": ["open", "in-progress", "blocked", "in-review", "done", "wont-fix"],
+      "description": "Current state."
+    },
+    "wont_fix_rationale": {
+      "type": "string",
+      "description": "Required when status=wont-fix. Documents the decision + the compensating control + the exception_id if applicable."
+    },
+    "compensating_controls": {
+      "type": "array",
+      "items": { "type": "string", "pattern": "^CTRL-[A-Z0-9-]+$" },
+      "description": "If completion is non-feasible by due_at, list the compensating controls in place. References to Exception/Waiver records belong on the exception, not here."
+    },
+    "verification_check": {
+      "type": "string",
+      "description": "How completion is verified — typically a Control Test id (TEST-...) that must pass after closure."
+    },
+    "evidence_emitted_ids": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Evidence objects created by this remediation, for the audit-pack trail."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "completed_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Required when status=done. The verification_check must have passed at or after this timestamp."
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "status": { "const": "done" } }, "required": ["status"] },
+      "then": { "required": ["completed_at"] }
+    },
+    {
+      "if": { "properties": { "status": { "const": "wont-fix" } }, "required": ["status"] },
+      "then": { "required": ["wont_fix_rationale"] }
+    }
+  ]
+}

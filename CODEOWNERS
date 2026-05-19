@@ -1,0 +1,30 @@
+# Compliance-to-Architecture Framework — code ownership.
+#
+# Per GOVERNANCE.md, the editor of record is the maintainer team at
+# Regunav Inc. while the multi-stakeholder advisory board is being
+# formed. This file pins review requirements for sensitive surfaces.
+
+# Anything not otherwise specified — editor team approves.
+*                                       @ReguNav/framework-editors
+
+# Authority text decompositions — REQUIRES a credentialed reviewer.
+# Per CONTRIBUTING.md, anonymous PRs cannot promote authorities to
+# `implemented` status.
+/src/seed.ts                            @ReguNav/framework-editors @ReguNav/credentialed-reviewers
+/src/types.ts                           @ReguNav/framework-editors @ReguNav/spec-reviewers
+
+# Methodology + governance + legal — editorial sign-off.
+/METHODOLOGY.md                         @ReguNav/framework-editors
+/GOVERNANCE.md                          @ReguNav/framework-editors
+/LEGAL_DISCLAIMER.md                    @ReguNav/framework-editors
+/CHANGELOG.md                           @ReguNav/framework-editors
+/SPEC.md                                @ReguNav/framework-editors @ReguNav/spec-reviewers
+
+# Conformance suite — small, audit-critical surface.
+/conformance/                           @ReguNav/framework-editors @ReguNav/spec-reviewers
+
+# Reference implementations — community track.
+/examples/                              @ReguNav/framework-editors @ReguNav/community-reviewers
+
+# JSON Schemas — wire-format compatibility risk if changed.
+/schemas/                               @ReguNav/framework-editors @ReguNav/spec-reviewers

@@ -1,0 +1,48 @@
+[
+  {
+    "evidence_rule_id": "EVRULE-IAM-ACCESS-REVIEW-FRESHNESS-001",
+    "evidence_type": "attestation",
+    "required_frequency": "quarterly",
+    "max_age_days": 90,
+    "retention_period": "P6Y",
+    "required_provenance": [
+      "signed-by-reviewer",
+      "signed-by-sign-off-principal",
+      "source-system=idp",
+      "hash-chain-anchored"
+    ],
+    "stale_behavior": "mark_control_not_audit_ready",
+    "applies_to_controls": ["CTRL-IAM-ACCESS-REVIEW-001"],
+    "rationale": "Quarterly privileged-access review cadence per ISO/IEC 27001 A.5.18, SOC 2 CC6.3, PCI DSS 4.0.1 Req. 7.2.5. 90-day max age is the standard audit window before the evidence is treated as stale."
+  },
+  {
+    "evidence_rule_id": "EVRULE-DPIA-FRESHNESS-001",
+    "evidence_type": "dpia",
+    "required_frequency": "annually",
+    "max_age_days": 365,
+    "retention_period": "P6Y",
+    "required_provenance": [
+      "signed-by-dpo",
+      "linked-to-processing-activity-record",
+      "hash-chain-anchored"
+    ],
+    "stale_behavior": "block_audit_pack",
+    "applies_to_controls": ["CTRL-PRIVACY-DPIA-001"],
+    "rationale": "GDPR Art. 35 + EDPB guidance: a Data Protection Impact Assessment must be refreshed at least annually and whenever the nature/scope/context of processing changes materially. Block audit pack is the safe default because GDPR carries supervisory-authority risk."
+  },
+  {
+    "evidence_rule_id": "EVRULE-TRAINING-FRESHNESS-001",
+    "evidence_type": "training_record",
+    "required_frequency": "annually",
+    "max_age_days": 365,
+    "retention_period": "P3Y",
+    "required_provenance": [
+      "lms-completion-record",
+      "signed-by-employee",
+      "source-system=lms"
+    ],
+    "stale_behavior": "mark_control_at_risk",
+    "applies_to_controls": ["CTRL-AWARENESS-TRAINING-001"],
+    "rationale": "Annual security and privacy awareness training is the cross-framework default (ISO 27001 A.6.3, SOC 2 CC1.4, GDPR Art. 39, HIPAA 164.530(b)). Mark-at-risk gives the owner a grace period to chase up overdue learners before the control falls out of audit-readiness."
+  }
+]

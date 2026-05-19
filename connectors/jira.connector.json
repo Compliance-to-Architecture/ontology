@@ -1,0 +1,31 @@
+{
+  "connector_id": "jira",
+  "name": "Jira (incident workflow)",
+  "vendor_url": "https://www.atlassian.com/software/jira",
+  "evidence_types_emitted": ["incident_record", "log"],
+  "auth": {
+    "method": "oauth2",
+    "scopes_required": [
+      "read:jira-work",
+      "read:jira-user",
+      "read:audit-log:jira"
+    ]
+  },
+  "probes": [
+    {
+      "probe_id": "jira-incident-issue-records",
+      "evidence_type": "incident_record",
+      "frequency_default": "on-event",
+      "description": "Synthetic placeholder. Verify against vendor docs. Exports issues from the incident project (status timeline, severity, resolution, post-mortem link).",
+      "satisfies_controls_hint": ["IR-001", "SOC2-CC7.4"]
+    },
+    {
+      "probe_id": "jira-audit-log",
+      "evidence_type": "log",
+      "frequency_default": "hourly",
+      "description": "Synthetic placeholder. Verify against vendor docs. Streams Jira audit log entries (project/permission/workflow changes).",
+      "satisfies_controls_hint": ["AUDIT-LOG-001"]
+    }
+  ],
+  "notes": "Synthetic/illustrative manifest. Verify scopes, endpoints, and probe behaviour against current Atlassian Jira documentation before wiring into a production engine."
+}

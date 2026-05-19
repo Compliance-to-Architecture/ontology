@@ -1,0 +1,100 @@
+[
+  {
+    "applicability_test_id": "APP-EUAI-HIGH-RISK-ANNEXIII-001",
+    "authority_id": "eu-ai-act@2024-1689",
+    "clause": "Annex III(4) read with Art. 6(2)",
+    "applies_when": [
+      { "facet": "aiSystemIsAiSystem", "operator": "eq", "value": true },
+      { "facet": "aiSystemPlacedOnMarketOrPutIntoServiceIn", "operator": "in", "value": ["JUR-EU", "JUR-EEA"] },
+      { "facet": "aiSystemUseCase", "operator": "in", "value": ["recruitment", "selection", "employment-management", "task-allocation", "performance-and-behavior-monitoring"] },
+      { "facet": "aiSystemAffectsNaturalPersons", "operator": "eq", "value": true },
+      { "facet": "aiSystemIsSafetyComponentExempt", "operator": "eq", "value": false }
+    ],
+    "role_sensitive": true,
+    "roles": ["provider", "deployer", "employer"],
+    "output": {
+      "obligation_set_id": "OBLSET-EUAI-HIGHRISK-CORE",
+      "risk_class": "high-risk"
+    },
+    "version": "1.0.0",
+    "source_provenance": [
+      { "authority_id": "eu-ai-act@2024-1689", "clause": "Art. 6(2)" },
+      { "authority_id": "eu-ai-act@2024-1689", "clause": "Annex III, point 4" },
+      { "authority_id": "eu-ai-act@2024-1689", "clause": "Art. 16 (provider obligations)" },
+      { "authority_id": "eu-ai-act@2024-1689", "clause": "Art. 26 (deployer obligations)" }
+    ],
+    "effective_from": "2026-08-02"
+  },
+  {
+    "applicability_test_id": "APP-GDPR-EXTRATERRITORIAL-001",
+    "authority_id": "gdpr@679-2016",
+    "clause": "Art. 3(2)",
+    "applies_when": [
+      { "facet": "controllerOrProcessorEstablishedIn", "operator": "not-in", "value": ["JUR-EU", "JUR-EEA"] },
+      { "facet": "processesPersonalData", "operator": "eq", "value": true },
+      { "facet": "dataSubjectLocatedIn", "operator": "in", "value": ["JUR-EU", "JUR-EEA"] },
+      { "facet": "processingActivity", "operator": "in", "value": ["offering-goods-or-services-to-data-subjects", "monitoring-behaviour-in-the-union"] }
+    ],
+    "role_sensitive": true,
+    "roles": ["controller", "processor"],
+    "output": {
+      "obligation_set_id": "OBLSET-GDPR-EXTRATERRITORIAL-CORE",
+      "risk_class": "applies-extraterritorial"
+    },
+    "version": "1.0.0",
+    "source_provenance": [
+      { "authority_id": "gdpr@679-2016", "clause": "Art. 3(2)(a)" },
+      { "authority_id": "gdpr@679-2016", "clause": "Art. 3(2)(b)" },
+      { "authority_id": "gdpr@679-2016", "clause": "Art. 27 (representative requirement)" },
+      { "authority_id": "gdpr@679-2016", "clause": "Recital 23" },
+      { "authority_id": "gdpr@679-2016", "clause": "Recital 24" }
+    ],
+    "effective_from": "2018-05-25"
+  },
+  {
+    "applicability_test_id": "APP-DORA-FINANCIAL-ENTITY-001",
+    "authority_id": "dora@2554-2022",
+    "clause": "Art. 2(1) read with Art. 2(2)",
+    "applies_when": [
+      { "facet": "entityKind", "operator": "in", "value": [
+        "credit-institution",
+        "payment-institution",
+        "electronic-money-institution",
+        "investment-firm",
+        "crypto-asset-service-provider",
+        "central-securities-depository",
+        "central-counterparty",
+        "trading-venue",
+        "trade-repository",
+        "manager-of-aif",
+        "management-company-ucits",
+        "data-reporting-service-provider",
+        "insurance-undertaking",
+        "reinsurance-undertaking",
+        "insurance-intermediary",
+        "institution-for-occupational-retirement-provision",
+        "credit-rating-agency",
+        "administrator-of-critical-benchmarks",
+        "crowdfunding-service-provider",
+        "securitisation-repository",
+        "ict-third-party-service-provider"
+      ] },
+      { "facet": "operatesIn", "operator": "in", "value": ["JUR-EU"] },
+      { "facet": "isMicroEnterpriseExempt", "operator": "eq", "value": false }
+    ],
+    "role_sensitive": true,
+    "roles": ["controller", "ict-provider", "vendor"],
+    "output": {
+      "obligation_set_id": "OBLSET-DORA-FINANCIAL-ENTITY-CORE",
+      "risk_class": "applies"
+    },
+    "version": "1.0.0",
+    "source_provenance": [
+      { "authority_id": "dora@2554-2022", "clause": "Art. 2(1)" },
+      { "authority_id": "dora@2554-2022", "clause": "Art. 2(2) (exclusions)" },
+      { "authority_id": "dora@2554-2022", "clause": "Art. 3 (definitions)" },
+      { "authority_id": "dora@2554-2022", "clause": "Art. 4 (proportionality)" }
+    ],
+    "effective_from": "2025-01-17"
+  }
+]

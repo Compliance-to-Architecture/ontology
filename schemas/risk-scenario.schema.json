@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://compliancetoarchitecture.com/schemas/layer/risk-scenario.schema.json",
+  "title": "RiskScenario (L0)",
+  "description": "What could go wrong — to whom, how likely, how bad. The L0 layer of the canonical 12-layer Compliance-to-Architecture Graph.",
+  "type": "object",
+  "required": ["id", "title", "domain", "harmType", "threatActors", "affectedStakeholders", "likelihood", "impact", "inherentScore", "mappedControls", "mappedMitigations"],
+  "properties": {
+    "id":                  { "type": "string", "pattern": "^RISK-[A-Z0-9-]+$" },
+    "title":               { "type": "string", "minLength": 1 },
+    "domain":              { "type": "string", "enum": ["privacy", "security", "ai-safety", "bias", "resilience", "financial", "operational", "regulatory"] },
+    "harmType":            { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "threatActors":        { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "affectedStakeholders":{ "type": "array", "items": { "type": "string" }, "minItems": 1 },
+    "likelihood":          { "type": "integer", "minimum": 1, "maximum": 5 },
+    "impact":              { "type": "integer", "minimum": 1, "maximum": 5 },
+    "inherentScore":       { "type": "integer", "minimum": 1, "maximum": 25 },
+    "mappedControls":      { "type": "array", "items": { "type": "string", "pattern": "^CTRL-" } },
+    "mappedMitigations":   { "type": "array", "items": { "type": "string", "pattern": "^MIT-" } },
+    "residualRiskScore":   { "type": "integer", "minimum": 0, "maximum": 25 }
+  },
+  "additionalProperties": false
+}

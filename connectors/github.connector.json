@@ -1,0 +1,47 @@
+{
+  "connector_id": "github",
+  "name": "GitHub Enterprise",
+  "vendor_url": "https://github.com/enterprise",
+  "evidence_types_emitted": ["configuration", "log", "contract"],
+  "auth": {
+    "method": "oauth2",
+    "scopes_required": [
+      "read:org",
+      "read:enterprise",
+      "read:audit_log",
+      "repo:status",
+      "admin:org_hook"
+    ]
+  },
+  "probes": [
+    {
+      "probe_id": "github-branch-protection-config",
+      "evidence_type": "configuration",
+      "frequency_default": "daily",
+      "description": "Synthetic placeholder. Verify against vendor docs. Captures branch-protection rules, required reviews, and required status checks per repository.",
+      "satisfies_controls_hint": ["SDLC-CHANGE-001", "SOC2-CC8"]
+    },
+    {
+      "probe_id": "github-org-sso-and-2fa-config",
+      "evidence_type": "configuration",
+      "frequency_default": "daily",
+      "description": "Synthetic placeholder. Verify against vendor docs. Captures org-level SSO enforcement and 2FA-required-for-members settings.",
+      "satisfies_controls_hint": ["IAM-MFA-001"]
+    },
+    {
+      "probe_id": "github-enterprise-audit-log",
+      "evidence_type": "log",
+      "frequency_default": "hourly",
+      "description": "Synthetic placeholder. Verify against vendor docs. Streams the enterprise audit log (org/team/repo admin events, secret scanning alerts, code-scanning resolutions).",
+      "satisfies_controls_hint": ["AUDIT-LOG-001", "SOC2-CC7"]
+    },
+    {
+      "probe_id": "github-enterprise-baa-contract",
+      "evidence_type": "contract",
+      "frequency_default": "annually",
+      "description": "Synthetic placeholder. Verify against vendor docs. Records the executed Business Associate Addendum / Data Processing Addendum with GitHub.",
+      "satisfies_controls_hint": ["VENDOR-DPA-001", "HIPAA-BAA-001"]
+    }
+  ],
+  "notes": "Synthetic/illustrative manifest. Verify scopes, endpoints, and probe behaviour against current GitHub Enterprise documentation before wiring into a production engine."
+}

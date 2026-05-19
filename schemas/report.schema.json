@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://compliancetoarchitecture.com/schemas/evidence/report.schema.json",
+  "title": "Report evidence",
+  "description": "Generated, parameterised report (PDF/CSV/JSON/XLSX) that aggregates underlying control evidence for an audit-period window.",
+  "type": "object",
+  "required": ["id", "title", "templateId", "format", "periodStart", "periodEnd", "generatedAt", "generatedBy", "uri", "sha256"],
+  "properties": {
+    "id":           { "type": "string", "pattern": "^EV-RPT-[A-Z0-9-]+$" },
+    "title":        { "type": "string", "minLength": 1 },
+    "templateId":   { "type": "string" },
+    "format":       { "type": "string", "enum": ["pdf","csv","json","xlsx","html"] },
+    "periodStart":  { "type": "string", "format": "date-time" },
+    "periodEnd":    { "type": "string", "format": "date-time" },
+    "generatedAt":  { "type": "string", "format": "date-time" },
+    "generatedBy":  { "type": "string" },
+    "uri":          { "type": "string", "format": "uri" },
+    "sha256":       { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+    "frameworks":   { "type": "array", "items": { "type": "string" } },
+    "controls":     { "type": "array", "items": { "type": "string" } }
+  },
+  "additionalProperties": false
+}

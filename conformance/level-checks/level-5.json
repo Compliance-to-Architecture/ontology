@@ -1,0 +1,23 @@
+{
+  "level": 5,
+  "name": "Produces audit packs (renders a per-framework + per-control pack)",
+  "summary": "Implementer renders an audit pack: a periodised deliverable bundling evidence behind a stated authority and a stated set of controls, with a manifest declaring the evidence ids it carries.",
+  "requirements": [
+    "At least one AuditPack (or equivalent rendered artifact) exists per implemented framework.",
+    "At least one AuditPack is scoped to a specific control or AI system.",
+    "Every section in the pack lists the evidence ids it relies on, and those ids resolve in the implementer's published ontology.",
+    "Lower-level invariants (Levels 1, 2, 4) continue to pass."
+  ],
+  "automated_checks": ["I1", "I2", "I3", "I4", "I5", "I6", "I7", "I8", "I9", "I10", "I11", "I16"],
+  "manual_checks": [
+    "Reviewer confirms packages/ontology/conformance/validate.mjs passes against the implementer's published ontology (no dangling evidence ids in pack sections).",
+    "Reviewer confirms at least one pack is scoped to a framework and at least one is scoped to a control or AI system.",
+    "Reviewer confirms the pack's manifest is human-readable and lists the cited evidence ids."
+  ],
+  "references": {
+    "spec": "packages/ontology/SPEC.md",
+    "conformance_doc": "packages/ontology/CONFORMANCE.md#level-5--produces-audit-packs-renders-a-per-framework--per-control-pack",
+    "invariants_source": "packages/frameworks/test/conformance.test.mjs",
+    "structural_validator": "packages/ontology/conformance/validate.mjs"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://compliancetoarchitecture.com/schemas/layer/applicability-rule.schema.json",
+  "title": "ApplicabilityRule (L3)",
+  "description": "A rule that decides whether an authority applies to a given product / market / activity, and which obligations are triggered when it does.",
+  "type": "object",
+  "required": ["id", "instrument", "appliesIf", "output", "triggeredObligations"],
+  "properties": {
+    "id":         { "type": "string", "pattern": "^APP-[A-Z0-9-]+$" },
+    "instrument": { "type": "string", "description": "Authority.id" },
+    "appliesIf": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["variable", "op", "value"],
+        "properties": {
+          "variable": { "type": "string" },
+          "op":       { "type": "string", "enum": ["eq", "neq", "in", "not-in", "gte", "lte", "matches"] },
+          "value":    { "oneOf": [{ "type": "string" }, { "type": "number" }, { "type": "array", "items": { "type": "string" } }] }
+        }
+      }
+    },
+    "output":               { "type": "string", "enum": ["applies", "applies-as-high-risk", "does-not-apply", "needs-legal-review"] },
+    "triggeredObligations": { "type": "array", "items": { "type": "string", "pattern": "^OBL-" } },
+    "effectiveDate":        { "type": "string", "format": "date" },
+    "applicableDate":       { "type": "string", "format": "date" },
+    "transitionDate":       { "type": "string", "format": "date" },
+    "note":                 { "type": "string" }
+  },
+  "additionalProperties": false
+}

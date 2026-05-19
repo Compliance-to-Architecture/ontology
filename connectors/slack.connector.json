@@ -1,0 +1,32 @@
+{
+  "connector_id": "slack",
+  "name": "Slack (compliance export)",
+  "vendor_url": "https://slack.com",
+  "evidence_types_emitted": ["log", "attestation"],
+  "auth": {
+    "method": "oauth2",
+    "scopes_required": [
+      "auditlogs:read",
+      "discovery:read",
+      "team:read",
+      "users:read"
+    ]
+  },
+  "probes": [
+    {
+      "probe_id": "slack-audit-logs",
+      "evidence_type": "log",
+      "frequency_default": "hourly",
+      "description": "Synthetic placeholder. Verify against vendor docs. Streams Enterprise Grid audit log entries (workspace admin, app installs, channel governance).",
+      "satisfies_controls_hint": ["AUDIT-LOG-001", "SOC2-CC7"]
+    },
+    {
+      "probe_id": "slack-acknowledgement-message-attestation",
+      "evidence_type": "attestation",
+      "frequency_default": "on-event",
+      "description": "Synthetic placeholder. Verify against vendor docs. Captures explicit user acknowledgements collected via Slack workflows or reaction-based attestation flows.",
+      "satisfies_controls_hint": ["POLICY-ACK-001"]
+    }
+  ],
+  "notes": "Synthetic/illustrative manifest. Verify scopes, endpoints, and probe behaviour against current Slack documentation before wiring into a production engine."
+}

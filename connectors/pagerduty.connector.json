@@ -1,0 +1,31 @@
+{
+  "connector_id": "pagerduty",
+  "name": "PagerDuty",
+  "vendor_url": "https://www.pagerduty.com",
+  "evidence_types_emitted": ["incident_record", "log"],
+  "auth": {
+    "method": "oauth2",
+    "scopes_required": [
+      "incidents.read",
+      "services.read",
+      "audit_records.read"
+    ]
+  },
+  "probes": [
+    {
+      "probe_id": "pagerduty-incident-records",
+      "evidence_type": "incident_record",
+      "frequency_default": "on-event",
+      "description": "Synthetic placeholder. Verify against vendor docs. Exports incident records with timeline, urgency, responders, acknowledgements, and resolution.",
+      "satisfies_controls_hint": ["IR-001", "SOC2-CC7.4"]
+    },
+    {
+      "probe_id": "pagerduty-audit-records-log",
+      "evidence_type": "log",
+      "frequency_default": "hourly",
+      "description": "Synthetic placeholder. Verify against vendor docs. Streams account audit records (schedule edits, escalation-policy changes, integration changes).",
+      "satisfies_controls_hint": ["AUDIT-LOG-001"]
+    }
+  ],
+  "notes": "Synthetic/illustrative manifest. Verify scopes, endpoints, and probe behaviour against current PagerDuty documentation before wiring into a production engine."
+}

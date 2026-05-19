@@ -1,0 +1,47 @@
+[
+  {
+    "exception_id": "EXC-2026-0001",
+    "control_id": "CTRL-AUDIT-WORM-LOG-001",
+    "reason": "Legacy on-prem archive on a deprecated WORM appliance cannot be migrated to the hash-chained WORM store before its EOL. The vendor has confirmed no firmware patch is available for the chain-of-custody export endpoint.",
+    "risk_acceptance_owner": "ciso",
+    "compensating_controls": [
+      "CTRL-PHYSICAL-DATAROOM-ACCESS-001",
+      "CTRL-IMMUTABLE-BACKUP-SNAPSHOT-001"
+    ],
+    "approved_until": "2026-09-30",
+    "status": "active",
+    "review_cadence": "monthly",
+    "linked_obligations": ["OBL-AUDIT-TRAIL-IMMUTABILITY-001"]
+  },
+  {
+    "exception_id": "EXC-2026-0002",
+    "control_id": "CTRL-IAM-MFA-ALL-USERS-001",
+    "reason": "Legacy SCADA HMI terminals cannot present MFA at the OS layer in their current firmware. Vendor roadmap delivers MFA capability in Q4 2026. Transitional exception while the upgrade programme runs.",
+    "risk_acceptance_owner": "cto",
+    "compensating_controls": [
+      "CTRL-NETWORK-SEGMENTATION-OT-001",
+      "CTRL-JUMP-HOST-MFA-001",
+      "CTRL-OT-PRIVILEGED-SESSION-RECORDING-001"
+    ],
+    "approved_until": "2026-12-31",
+    "status": "active",
+    "review_cadence": "quarterly",
+    "linked_risk_scenarios": ["RISK-OT-CREDENTIAL-COMPROMISE-001"],
+    "linked_obligations": ["OBL-MFA-PRIVILEGED-ACCESS-001"]
+  },
+  {
+    "exception_id": "EXC-2026-0003",
+    "control_id": "CTRL-BYOD-FULL-DISK-ENCRYPTION-001",
+    "reason": "BYOD encryption rollout for the contractor population has been delayed pending procurement of management agents compatible with the contractor device mix. Risk is mitigated by routing all sensitive workloads through the corporate VDI in the interim.",
+    "risk_acceptance_owner": "ciso",
+    "compensating_controls": [
+      "CTRL-VDI-NO-LOCAL-PERSISTENCE-001",
+      "CTRL-DLP-EGRESS-MONITORING-001",
+      "CTRL-CONTRACTOR-ACCESS-REVIEW-001"
+    ],
+    "approved_until": "2026-08-31",
+    "status": "active",
+    "review_cadence": "monthly",
+    "linked_obligations": ["OBL-ENDPOINT-ENCRYPTION-001"]
+  }
+]

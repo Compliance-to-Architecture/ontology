@@ -1,0 +1,39 @@
+{
+  "connector_id": "gitlab",
+  "name": "GitLab",
+  "vendor_url": "https://about.gitlab.com",
+  "evidence_types_emitted": ["configuration", "log"],
+  "auth": {
+    "method": "oauth2",
+    "scopes_required": [
+      "read_api",
+      "read_user",
+      "read_audit_events",
+      "read_repository"
+    ]
+  },
+  "probes": [
+    {
+      "probe_id": "gitlab-protected-branches-config",
+      "evidence_type": "configuration",
+      "frequency_default": "daily",
+      "description": "Synthetic placeholder. Verify against vendor docs. Captures protected-branch settings, merge-approval rules, and required pipeline checks per project.",
+      "satisfies_controls_hint": ["SDLC-CHANGE-001", "SOC2-CC8"]
+    },
+    {
+      "probe_id": "gitlab-group-2fa-and-sso-config",
+      "evidence_type": "configuration",
+      "frequency_default": "daily",
+      "description": "Synthetic placeholder. Verify against vendor docs. Captures group-level SAML SSO enforcement and 2FA-required-for-members settings.",
+      "satisfies_controls_hint": ["IAM-MFA-001"]
+    },
+    {
+      "probe_id": "gitlab-audit-events",
+      "evidence_type": "log",
+      "frequency_default": "hourly",
+      "description": "Synthetic placeholder. Verify against vendor docs. Streams instance, group, and project audit events.",
+      "satisfies_controls_hint": ["AUDIT-LOG-001", "SOC2-CC7"]
+    }
+  ],
+  "notes": "Synthetic/illustrative manifest. Verify scopes, endpoints, and probe behaviour against current GitLab documentation before wiring into a production engine."
+}

@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://compliancetoarchitecture.com/schemas/evidence/data-card.schema.json",
+  "title": "Data card evidence (Datasheets-for-Datasets)",
+  "description": "Structured dataset documentation — collection process, composition, intended use, distribution, maintenance. Aligns with Gebru et al. 2018 + EU AI Act Art. 10 data-governance requirements.",
+  "type": "object",
+  "required": ["id", "datasetId", "datasetName", "purpose", "composition", "collectionProcess", "ownerPrincipalId"],
+  "properties": {
+    "id":               { "type": "string", "pattern": "^EV-DAT-[A-Z0-9-]+$" },
+    "datasetId":        { "type": "string" },
+    "datasetName":      { "type": "string", "minLength": 1 },
+    "purpose":          { "type": "string", "minLength": 1 },
+    "composition":      { "type": "string", "minLength": 1, "description": "What does each instance represent? Are there labels? Missing values?" },
+    "collectionProcess": { "type": "string", "minLength": 1, "description": "How was the data acquired? Time period, sampling, ethics review." },
+    "preprocessing":    { "type": "string" },
+    "uses":             { "type": "string", "description": "What other tasks could this dataset be used for? Are there tasks for which it should NOT be used?" },
+    "distribution":     { "type": "string" },
+    "maintenance":      { "type": "string", "description": "Versioning, support contact, deprecation policy." },
+    "biasAssessmentUri":{ "type": "string", "format": "uri" },
+    "consentBasis":     { "type": "string", "enum": ["consent","contract","legal_obligation","vital_interests","public_task","legitimate_interests","na"] },
+    "specialCategories":{ "type": "array", "items": { "type": "string" } },
+    "ownerPrincipalId": { "type": "string" },
+    "publishedAt":      { "type": "string", "format": "date-time" },
+    "uri":              { "type": "string", "format": "uri" },
+    "sha256":           { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  },
+  "additionalProperties": false
+}

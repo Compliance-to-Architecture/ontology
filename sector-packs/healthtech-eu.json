@@ -1,0 +1,23 @@
+{
+  "sector_pack_id": "healthtech-eu",
+  "name": "Healthtech / Digital Health (EU)",
+  "description": "Curated framework bundle for EU/EEA digital-health businesses — telemedicine, electronic-health-record SaaS, AI-driven diagnostic-support tools and the upcoming European Health Data Space exchange use-cases.",
+  "version": "0.1.0",
+  "required_frameworks": ["GDPR", "NIS2", "ISO_27001"],
+  "recommended_frameworks": ["ISO_27701", "EU_AI_ACT", "DORA"],
+  "optional_frameworks": ["UK_GDPR", "ISO_42001"],
+  "crosswalk_pairs": [
+    { "a": "GDPR", "b": "ISO_27001", "rationale": "Art. 32 'appropriate technical and organisational measures' maps to ISO 27001 Annex A.5 / A.8 — the security baseline EU DPAs and national health-data authorities expect for patient data." },
+    { "a": "GDPR", "b": "ISO_27701", "rationale": "ISO 27701 Annex C is the authoritative GDPR mapping — Cl. 5.2 / 5.3 / 5.5 / 5.7 / 6 / 7 cover purpose, lawful basis, DPIA, RoPA, security and transfers." },
+    { "a": "GDPR", "b": "NIS2", "rationale": "Art. 32 ↔ NIS2 Art. 21 cybersecurity-risk-management overlap; Art. 33 (72h DPA notification) and NIS2 Art. 23 (24h early warning / 72h notification) can trigger on the same incident." }
+  ],
+  "sequencing_notes": [
+    "1. Stand up ISO 27001 ISMS first — gives you the Annex A baseline that GDPR Art. 32, NIS2 Art. 21 and ISO 27701 all reference.",
+    "2. Layer GDPR Art. 9 special-category protections, Art. 35 DPIA (mandatory for large-scale health-data processing) and Art. 5 / 6 / 13 / 14 / 30 plumbing.",
+    "3. NIS2 transposition deadlines vary by Member State (most live during 2024–2025) — confirm whether you're an 'essential' or 'important' entity under Annex I / II; large health providers usually qualify.",
+    "4. ISO 27701 once 27001 is operating — Annex C gives you a defensible standards-based GDPR claim.",
+    "5. EU AI Act + ISO 42001 only if the product is an AI medical device under MDR / IVDR or makes automated clinical recommendations — Annex III(5)(a) makes such systems high-risk.",
+    "6. DORA only if you're a financial-entity health-insurer or process payments at scale; otherwise out of scope."
+  ],
+  "last_reviewed": "2026-05-16"
+}

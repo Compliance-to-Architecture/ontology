@@ -1,0 +1,54 @@
+{
+  "connector_id": "okta",
+  "name": "Okta",
+  "vendor_url": "https://www.okta.com",
+  "evidence_types_emitted": ["configuration", "log", "attestation", "training_record"],
+  "auth": {
+    "method": "oauth2",
+    "scopes_required": [
+      "okta.users.read",
+      "okta.groups.read",
+      "okta.policies.read",
+      "okta.logs.read",
+      "okta.workflows.read"
+    ]
+  },
+  "probes": [
+    {
+      "probe_id": "okta-mfa-enrollment-config",
+      "evidence_type": "configuration",
+      "frequency_default": "daily",
+      "description": "Synthetic placeholder. Verify against vendor docs. Fetches tenant-wide MFA enrollment policy as a configuration snapshot.",
+      "satisfies_controls_hint": ["IAM-MFA-001", "SOC2-CC6"]
+    },
+    {
+      "probe_id": "okta-password-policy-config",
+      "evidence_type": "configuration",
+      "frequency_default": "daily",
+      "description": "Synthetic placeholder. Verify against vendor docs. Captures password-policy and lockout-policy configuration for the tenant.",
+      "satisfies_controls_hint": ["IAM-PWD-001"]
+    },
+    {
+      "probe_id": "okta-system-log",
+      "evidence_type": "log",
+      "frequency_default": "hourly",
+      "description": "Synthetic placeholder. Verify against vendor docs. Streams the tenant system log (admin actions, auth events, MFA events).",
+      "satisfies_controls_hint": ["AUDIT-LOG-001", "SOC2-CC7"]
+    },
+    {
+      "probe_id": "okta-access-review-attestation",
+      "evidence_type": "attestation",
+      "frequency_default": "quarterly",
+      "description": "Synthetic placeholder. Verify against vendor docs. Captures group/role access-review attestations completed by reviewers.",
+      "satisfies_controls_hint": ["ACCESS-REVIEW-001", "SOC2-CC6.3"]
+    },
+    {
+      "probe_id": "okta-workflows-security-training-record",
+      "evidence_type": "training_record",
+      "frequency_default": "monthly",
+      "description": "Synthetic placeholder. Verify against vendor docs. Reads security-training completion records emitted by Okta Workflows automations.",
+      "satisfies_controls_hint": ["TRAIN-SEC-001"]
+    }
+  ],
+  "notes": "Synthetic/illustrative manifest. Verify scopes, endpoints, and probe behaviour against current Okta documentation before wiring into a production engine."
+}

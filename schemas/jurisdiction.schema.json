@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://compliancetoarchitecture.com/schemas/layer/jurisdiction.schema.json",
+  "title": "Jurisdiction (L2)",
+  "description": "A territorial scope under which authorities have legal force. Jurisdictions can be hierarchical (federal → state → province) and can have treaty memberships (EU, EEA).",
+  "type": "object",
+  "required": ["id", "name", "regulators"],
+  "properties": {
+    "id":                  { "type": "string", "pattern": "^JUR-[A-Z0-9-]+$" },
+    "name":                { "type": "string", "minLength": 1 },
+    "parent":              { "type": "string", "pattern": "^JUR-[A-Z0-9-]+$" },
+    "regulators":          { "type": "array", "items": { "type": "string", "pattern": "^REG-" } },
+    "treatyMemberships":   { "type": "array", "items": { "type": "string" } },
+    "childJurisdictions":  { "type": "array", "items": { "type": "string", "pattern": "^JUR-" } }
+  },
+  "additionalProperties": false
+}
