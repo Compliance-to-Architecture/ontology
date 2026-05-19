@@ -53,6 +53,6 @@ See `SPEC.md` for the canonical specification, `METHODOLOGY.md` for the design p
 
 ## Provenance
 
-Mirrored from the upstream [ReguNav/app](https://github.com/ReguNav/app) monorepo. Apache-2.0 contributions welcome — by contributing you agree your contribution is Apache-2.0.
+Maintained by Regunav Inc. Apache-2.0 contributions welcome — by contributing you agree your contribution is Apache-2.0.
 
 [![Site](https://img.shields.io/badge/compliancetoarchitecture.com-→-1F6FEB.svg)](https://compliancetoarchitecture.com)
